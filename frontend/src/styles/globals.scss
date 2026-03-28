@@ -1,0 +1,10 @@
+/*
+ * CSS FILE NAME : globals.scss
+ * 역할 : 전역 SCSS 파일
+ * 설명 :  APP.tsx 파일에서 이 파일 하나만 import 하면 됨 (=전역 SCSS)
+*/
+@use './abstracts/variables';
+@use './base/reset';
+@use './base/typography';
+@use './base/common';
+
