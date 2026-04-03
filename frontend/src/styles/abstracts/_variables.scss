@@ -4,6 +4,68 @@
  * 설명 :  공통으로 사용할 변수정보를 담고있는 SCSS 파일
 */
 
-$color-primary:#2563eb;
-$color-secondary:#64748b;
-$color-danger:#dc2626;
+
+/***********************
+   🎨 COLOR 색깔 변수
+ ***********************/
+$color-primary: #3EB489;
+$color-primary-light: #AEEBD1;
+$color-primary-dark: #2B9D7E;
+$color-error: #FF5C5C;
+$color-white: #FFFFFF;
+$color-txt: #222222;
+$color-disabled: #D3EDE4;
+$color-base: #F8FDFB;
+$color-surface: #E2F7EF;
+$color-secondary: #666666;
+$color-orange: #FFB347;
+$color-info: #17A2BB;
+$color-hover: #34A07D;
+$color-active: #2B9D6D;
+$color-success: #20C997;
+$color-border: #CCCCCC;
+$color-gray-1: #F5F5F5; // 매우 연함 (background)
+$color-gray-2: #E0E0E0; // 연함 (border light)
+$color-gray-3: #BFBFBF; // 기준
+$color-gray-4: #8C8C8C; // 진함 (text secondary)
+$color-gray-5: #595959; // 매우 진함 (text primary 보조)
+
+// TABLE & GRID
+//$color-grid-line:#3EB489;  // 20%
+//$color-grid-header:#3EB489;  // 20%;
+//$color-grid-row-selected:#AEEBD1; // 20%
+//$color-grid-row-hover:#E2F7EF;  // 20%
+//$color-grid-background:#F8FDFB; // 20%
+//$color-grid-border:#CCCCCC; // 20%
+//$color-grid-disabled-row:#D3EDE4; // 20%
+//$color-grid-error-cell:#FF5C5C; // 20%
+
+/***********************
+  💬 FONT SIZE
+ ***********************/
+$font-size-10: 10px;
+$font-size-12: 12px;
+$font-size-14: 14px;
+$font-size: 16px;
+$font-size-lg: 18px;
+
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 12px;
+
+/***********************
+  👽 SPACE 공간
+ ***********************/
+$spacing-4: 4px;
+$spacing-8: 8px;
+$spacing-12: 12px;
+$spacing-16: 16px;
+$spacing-24: 24px;
+$spacing-32: 32px;
+
+/**********************
+  ↔️ 사이즈
+ **********************/
+$size-10: 10px;
+$size-16: 16px;
+

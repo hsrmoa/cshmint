@@ -1,0 +1,39 @@
+import styles from "./Button.module.scss";
+import React from "react";
+
+type ButtonProps = {
+  children: React.ReactNode;
+  variant?: 'primary' | 'secondary' | 'danger' | 'success';
+  className?: string;
+  disabled?: boolean;
+  type?: 'button' | 'submit' | 'reset'
+}
+
+/**
+ * 컴포넌트 > 버튼
+ * @param children  버튼 내용
+ * @param variant   버튼 스타일 타입
+ * @param className 버튼 className
+ * @param disabled  버튼 비활성여부
+ * @param type 버튼 타입
+ * @constructor
+ */
+function Button({
+                  children,
+                  variant = 'primary',
+                  className = '',
+                  disabled = false,
+                  type = 'button'
+                }: ButtonProps) {
+  return (
+    <button
+      type={type}
+      disabled={disabled}
+      className={`${styles.button} ${styles[variant]} ${styles[className]}`}
+    >
+      {children}
+    </button>
+  );
+}
+
+export default Button;

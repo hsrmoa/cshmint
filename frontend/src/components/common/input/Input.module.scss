@@ -1,0 +1,156 @@
+/* INPUT CSS */
+@use '@/styles/abstracts/variables' as *;
+
+/* =========================
+   ➕ Suffix 대응 padding
+========================= */
+
+.hasSuffix {
+  padding-right: 40px;
+}
+
+.hasTextSuffix {
+  padding-right: 52px;
+}
+
+.hasActionSuffix{
+  padding-right: 44px;
+}
+
+/* =========================
+   🎯 Suffix 영역
+========================= */
+
+.suffix {
+  position: absolute;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-secondary;
+}
+
+/* 아이콘 */
+.suffixIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: $size-16;
+  height: $size-16;
+}
+
+/* 텍스트 (예: 원) */
+.suffixText {
+  font-size: $font-size-14;
+  line-height: 1;
+  white-space: nowrap;
+}
+.suffixButton {
+  position: absolute;
+  right: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: $color-primary-dark;
+  cursor: pointer;
+  border-radius: 6px;
+
+  &:hover {
+    color: lighten($color-primary-dark, 8%);
+  }
+
+  &:active {
+    color: darken($color-primary-dark, 8%);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px lighten($color-primary-dark, 2%);
+  }
+
+  &:disabled {
+    color: darken($color-gray-1, 30%);
+    cursor: not-allowed;
+    background: transparent;
+  }
+}
+
+/*======================
+   ✏️ Input
+=======================*/
+
+.field {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+
+  color: $color-secondary;
+  background: $color-white;
+  border: 1px solid mix(#000, $color-primary-light, 20%);
+  border-radius: $radius-md;
+
+  font-size: $font-size;
+  outline: none;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: $color-gray-3;
+  }
+
+  &:focus {
+    border-color: $color-primary-dark;
+    box-shadow: 0 0 0 2px darken(mix(#000, $color-primary-light, 20%), 2%);
+  }
+
+  &:hover {
+    border-color: lighten(mix(#000, $color-primary-light, 20%), 8%);
+  }
+
+  &:disabled {
+    background: $color-gray-1;
+    color: lighten($color-txt, 50%);
+    border-color: darken($color-gray-1, 30%);
+    cursor: not-allowed;
+  }
+}
+// 에러 발생시
+.error {
+  background: lighten($color-error, 28%);
+  border-color: $color-error;
+  color: lighten($color-error, 5%);
+
+  &:focus {
+    border-color: darken($color-error, 10%);
+    box-shadow: 0 0 0 2px darken(mix(#000, $color-error, 10%), 2%)
+  }
+  &:hover {
+    border-color: lighten(mix(#000, $color-error, 10%), 8%);
+  }
+}
+// type이 search 일때 x버튼 제거
+input[type='search']::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
+  display: none;
+}
+
+
+
+
+
