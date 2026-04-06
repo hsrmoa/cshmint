@@ -1,0 +1,180 @@
+@use '@/styles/abstracts/variables' as *;
+
+
+/*======================
+   📅 Calendar
+=======================*/
+.datePicker {
+  position: relative;
+  width: 100%;
+}
+
+.hasSuffix {
+  padding-left: 45px;
+
+  &::placeholder {
+    padding-left: 15px;
+  }
+}
+
+.prefix {
+  position:absolute;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  vertical-align: center;
+  color: $color-secondary;
+  font-size: $font-size-14;
+}
+
+.inputArea {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+}
+
+.calendarButton {
+  position: absolute;
+  right: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: $color-primary-dark;
+  cursor: pointer;
+  border-radius: 6px;
+
+  &:hover {
+    color: lighten($color-primary-dark, 8%);
+  }
+
+  &:active {
+    color: darken($color-primary-dark, 8%);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px lighten($color-primary-dark, 2%);
+  }
+
+  &:disabled {
+    color: darken($color-gray-1, 30%);
+    cursor: not-allowed;
+    background: transparent;
+  }
+}
+
+.error {
+  color: lighten($color-error, 10%);
+
+  &:focus {
+    color: darken($color-error, 10%);
+  }
+
+  &:hover {
+    color: lighten(mix(#000, $color-error, 10%), 8%);
+  }
+}
+/*********************
+ * 📅 react-day-picker SCSS
+ **********************/
+.popup {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 20;
+  width: 280px;
+  padding: 12px;
+  border: 1px solid $color-gray-2;
+  border-radius: $radius-lg;
+  background: $color-white;
+  box-shadow: 0 8px 24px $color-gray-1;
+}
+.monthCaption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  color: darken($color-txt, 8%);
+  font-size: $font-size;
+  font-weight: 600;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navButton {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: $color-white;
+  cursor: pointer;
+}
+
+.month {
+  padding: 8px;
+}
+
+.week {
+  display: flex;
+}
+.weekdays {
+  margin-bottom: 6px;
+}
+
+.weekday {
+  color: $color-gray-4;
+  font-size: $font-size-14;
+  font-weight: 400;
+}
+
+.day {
+  padding: 2px;
+}
+
+.dayButton {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 8px;
+  background: $color-white;
+  color: $color-txt;
+  font-size: $font-size-14;
+  cursor: pointer;
+
+  &:hover {
+    background: $color-primary-light;
+  }
+}
+
+.selected .dayButton,
+.dayButton.selected {
+  background: darken($color-primary-light, 8%);
+  color: $color-txt;
+}
+
+.today .dayButton,
+.dayButton.today {
+  background: $color-primary-dark;
+  color: $color-white;
+}
+
+.outside .dayButton,
+.dayButton.outside {
+  color: $color-gray-2;
+}
+
+.disabled .dayButton,
+.dayButton.disabled {
+  background: $color-gray-1;
+  color: darken($color-gray-1, 30%);
+  cursor: not-allowed;
+}

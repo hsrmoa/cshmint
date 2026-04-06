@@ -1,10 +1,13 @@
 import SearchIcon from "@/components/common/icon/SearchIcon.tsx";
-
+import CalendarIcon from "@/components/common/icon/CalendarIcon.tsx";
+import Crown from "@/components/common/icon/Crown.tsx";
 /**
  * 공통 ICONS를 지정한 정보
  */
 const Icons = {
   search: SearchIcon,
+  calendar: CalendarIcon,
+  crown: Crown
 };
 
 /**

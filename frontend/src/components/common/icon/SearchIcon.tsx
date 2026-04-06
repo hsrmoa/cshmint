@@ -1,6 +1,9 @@
+/**
+ * 아이콘 > 검색 버튼 아이콘 props
+ */
 type SearchIconProps = {
   size?: number;
-  color?: string
+  color?: string;
 }
 /**
  *  ICON > 검색 버튼 ICON
