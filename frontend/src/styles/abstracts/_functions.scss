@@ -1,0 +1,31 @@
+@use './variables' as *;
+@use 'sass:color';
+
+/**********************
+  SCSS > 색깔 어둡기
+***********************/
+@function color-darken($base-color, $amount) {
+  @return color.adjust($base-color, $lightness: -$amount);
+}
+
+/**********************
+  SCSS > 색깔 밝기
+***********************/
+@function color-lighten($base-color, $amount) {
+  @return color.adjust($base-color, $lightness: $amount);
+}
+
+/**********************
+  SCSS > 색깔 black mix
+***********************/
+@function color-mix-black($base-color, $amount) {
+  @return color.mix(#000, $base-color, $amount);
+}
+
+/**********************
+  SCSS > 색깔 white mix
+***********************/
+@function color-mix-white($base-color, $amount) {
+  @return color.mix(#fff, $base-color, $amount);
+}
+

@@ -1,5 +1,5 @@
 /* 버튼 CSS 정보 */
-@use '@/styles/abstracts/variables' as *;
+@use '@/styles/abstracts' as *;
 
 .button {
   display: inline-flex;
@@ -7,7 +7,7 @@
   justify-content: center;
   white-space: nowrap;
   border: none;
-  border-radius: $radius-md;
+  border-radius: $radius-8;
   cursor: pointer;
   font-weight: 500;
   padding: 12px;
@@ -22,11 +22,11 @@
   color: $color-white;
 
   &:hover {
-    background: lighten($color-primary-dark, 8%);
+    background: color-lighten($color-primary-dark, 8%);
   }
 
   &:active {
-    background: darken($color-primary-dark, 10%);
+    background: color-darken($color-primary-dark, 10%);
   }
 }
 
@@ -36,11 +36,11 @@
   color: $color-txt;
 
   &:hover {
-    background: lighten($color-primary-light, 8%);
+    background: color-lighten($color-primary-light, 8%);
   }
 
   &:active {
-    background: darken($color-primary-light, 10%);
+    background: color-darken($color-primary-light, 10%);
   }
 }
 
@@ -50,11 +50,11 @@
   color: $color-txt;
 
   &:hover {
-    background: lighten($color-error, 8%);
+    background: color-lighten($color-error, 8%);
   }
 
   &:active {
-    background: darken($color-error, 10%);
+    background: color-darken($color-error, 10%);
   }
 }
 
@@ -64,14 +64,13 @@
   color: $color-txt;
 
   &:hover {
-    background: lighten($color-success, 8%);
+    background: color-lighten($color-success, 8%);
   }
 
   &:active {
-    background: darken($color-success, 10%);
+    background: color-darken($color-success, 10%);
   }
 }
-
 
 .button:disabled {
   background: $color-disabled;

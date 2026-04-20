@@ -1,6 +1,9 @@
 import styles from "./Button.module.scss";
 import React from "react";
 
+/**
+ * 컴포넌트 > 버튼 파라미터
+ */
 type ButtonProps = {
   children: React.ReactNode;
   variant?: 'primary' | 'secondary' | 'danger' | 'success';

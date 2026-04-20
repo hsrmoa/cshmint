@@ -1,5 +1,5 @@
-@use '@/styles/abstracts/variables' as *;
-
+/* DatePicker  CSS 정보 */
+@use '@/styles/abstracts' as *;
 
 /*======================
    📅 Calendar
@@ -50,34 +50,34 @@
   border-radius: 6px;
 
   &:hover {
-    color: lighten($color-primary-dark, 8%);
+    color: color-lighten($color-primary-dark, 8%);
   }
 
   &:active {
-    color: darken($color-primary-dark, 8%);
+    color: color-darken($color-primary-dark, 8%);
   }
 
   &:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 2px lighten($color-primary-dark, 2%);
+    box-shadow: 0 0 0 2px color-lighten($color-primary-dark, 2%);
   }
 
   &:disabled {
-    color: darken($color-gray-1, 30%);
+    color: color-darken($color-gray-1, 30%);
     cursor: not-allowed;
     background: transparent;
   }
 }
 
 .error {
-  color: lighten($color-error, 10%);
+  color: color-lighten($color-error, 10%);
 
   &:focus {
-    color: darken($color-error, 10%);
+    color: color-darken($color-error, 10%);
   }
 
   &:hover {
-    color: lighten(mix(#000, $color-error, 10%), 8%);
+    color: color-lighten(color-mix-black($color-error, 10%), 8%);
   }
 }
 /*********************
@@ -91,7 +91,7 @@
   width: 280px;
   padding: 12px;
   border: 1px solid $color-gray-2;
-  border-radius: $radius-lg;
+  border-radius: $radius-12;
   background: $color-white;
   box-shadow: 0 8px 24px $color-gray-1;
 }
@@ -100,7 +100,7 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 12px;
-  color: darken($color-txt, 8%);
+  color: color-darken($color-txt, 8%);
   font-size: $font-size;
   font-weight: 600;
 }
@@ -157,7 +157,7 @@
 
 .selected .dayButton,
 .dayButton.selected {
-  background: darken($color-primary-light, 8%);
+  background: color-darken($color-primary-light, 8%);
   color: $color-txt;
 }
 
@@ -175,6 +175,6 @@
 .disabled .dayButton,
 .dayButton.disabled {
   background: $color-gray-1;
-  color: darken($color-gray-1, 30%);
+  color: color-darken($color-gray-1, 30%);
   cursor: not-allowed;
 }

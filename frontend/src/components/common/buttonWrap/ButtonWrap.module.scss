@@ -1,0 +1,17 @@
+/* INPUT을 감싸는 Wrapper 관련된  CSS 정보 */
+@use '@/styles/abstracts/variables' as *;
+@use 'sass:color';
+
+/*======================
+  🧩 Wrapper
+=======================*/
+
+.wrapper {
+  display: inline-flex;
+  flex-direction: row;
+  gap: 6px;
+}
+
+.fullWidth {
+  width: 100%;
+}

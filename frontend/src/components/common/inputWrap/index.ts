@@ -1,1 +1,1 @@
-export { default } from './InputWrap';
+export { default } from './InputWrap.tsx';

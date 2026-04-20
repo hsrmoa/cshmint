@@ -1,0 +1,22 @@
+/* 버튼 CSS 정보 */
+@use '@/styles/abstracts' as *;
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: $color-txt;
+  background: $color-white;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+}

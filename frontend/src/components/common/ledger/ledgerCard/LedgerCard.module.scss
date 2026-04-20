@@ -1,0 +1,46 @@
+/**
+  가계부 > 목록 카드 컴포넌트 SCSS
+ */
+@use '@/styles/abstracts' as *;
+
+.card {
+  min-height: 202px;
+  width: 100%;
+  background: $color-base;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.14);
+  overflow: hidden;
+}
+
+.cardHeader {
+  height: 56px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  font-size: $font-size-20;
+  font-weight: 800;
+  color: #fff;
+}
+
+.green {
+  background: $color-primary;
+}
+
+.orange {
+  background: $color-orange;
+}
+
+.cardBody {
+  padding: 14px 14px 8px;
+  min-height: 110px;
+}
+
+.cardFooter {
+  padding: 0 14px 14px;
+  display: flex;
+  justify-content: flex-end;
+  color: $color-secondary;
+  font-size: 14px;
+  font-weight: 500;
+}
+

@@ -4,6 +4,13 @@ import InputWrap from "@/components/common/inputWrap/InputWrap.tsx";
 import DatePicker from "@/components/common/datepicker";
 import Icon from "@/components/common/icon/Icon.tsx";
 import SelectBox from "@/components/common/selectBox";
+import Checkbox from "@/components/common/checkbox";
+import AuthLayout from "@/components/layouts/auth";
+import FormCard from "@/components/common/formCard";
+import ButtonWrap from "@/components/common/buttonWrap";
+import LedgerListLayout from "@/components/layouts/ledgerList";
+import LedgerCard from "@/components/common/ledger/ledgerCard";
+import LedgerCardContent from "@/components/common/ledger/ledgerCardContent";
 
 /**
  *  @name: Guide.tsx(퍼블 가이드 문서)
@@ -38,6 +45,19 @@ function Guide() {
             <Input value="에러 input" isError={true}/>
           </InputWrap>
         </div>
+
+        <section style={{marginTop: '32px'}}>
+          <h2>CheckBox</h2>
+          <div style={{display: 'flex', gap: '12px', marginTop: '12px'}}>
+            <Checkbox checked={true} onChange={()=> {}}/>
+            <Checkbox checked={true} onChange={()=> {}} label="체크"/>
+            <Checkbox checked={true} disabled={true} onChange={()=> {}} label="체크(비활성)"/>
+            <Checkbox checked={false} onChange={()=> {}}/>
+            <Checkbox checked={false} onChange={()=> {}} label="체크해제"/>
+            <Checkbox checked={false} disabled={true} onChange={()=> {}} label="체크해제(비활성)"/>
+          </div>
+        </section>
+
         <section style={{marginTop: '32px'}}>
           <h2>DatePicker</h2>
           <div style={{display: 'flex', gap: '12px', marginTop: '12px'}}>
@@ -88,9 +108,10 @@ function Guide() {
         <h2>ICON</h2>
         <div style={{display: 'flex', gap: '12px', marginTop: '12px'}}>
           <Icon name="crown" color="#2B9D7E" />
+          <Icon name="minus" color="#2B9D7E" />
+          <Icon name="plus" color="#2B9D7E" />
         </div>
       </section>
-
 
       <section style={{marginTop: '32px'}}>
         <h2>SelectBox</h2>
@@ -101,6 +122,81 @@ function Guide() {
           <SelectBox isError={true} options={[{value: '', label:'전체'}, {value: '1', label:'1'}]} />
         </div>
       </section>
+
+      <section style={{marginTop: '32px'}}>
+        <h2>Auth Layout</h2>
+        <div style={{display: 'flex', gap: '12px', marginTop: '12px'}}>
+          <AuthLayout>
+            <FormCard>
+              <InputWrap label="Email" isFullWidth={true} isError={true} errorMessage="이메일을 입력해주세요.">
+                <Input placeholder="검색버튼 비활성" suffixType="text" suffix="원"/>
+              </InputWrap>
+              <InputWrap label="Email" isFullWidth={true}>
+                <Input placeholder="검색버튼 비활성" suffixType="text" suffix="원"/>
+              </InputWrap>
+              <ButtonWrap>
+                <Button variant="success">success</Button>
+                <Button variant="success">success</Button>
+              </ButtonWrap>
+            </FormCard>
+          </AuthLayout>
+        </div>
+      </section>
+
+      <section style={{marginTop: '32px'}}>
+        <h2>LEDGER LIST</h2>
+        <div style={{display: 'flex', gap: '12px', marginTop: '12px'}}>
+          <LedgerListLayout
+            title="가계부 목록"
+            searchSort={<ButtonWrap>
+              <Button variant="success">success</Button>
+              <Button variant="success">success</Button>
+            </ButtonWrap>}
+            bodyType="cardList"
+          >
+            <LedgerCard
+              onClick={() => {alert("AA")}}
+              title="소라의가계부"
+            >
+              <LedgerCardContent owner="소라빵" createAt="2025-04-19"/>
+            </LedgerCard>
+            <LedgerCard
+              onClick={() => {alert("AA")}}
+              title="가족여행장부"
+            >
+              <LedgerCardContent owner="소라빵" createAt="2025-04-19"/>
+            </LedgerCard>
+            <LedgerCard
+              onClick={() => {alert("AA")}}
+              title="TOY_회비장부"
+              className="orange"
+            >
+              <LedgerCardContent
+                owner="유인우"
+                ownerColor="orange"
+                members={["박수연","소라빵","심지훈","조성호"]}
+                createAt="2025-04-19"
+              />
+            </LedgerCard>
+            <LedgerCard
+              onClick={() => {alert("AA")}}
+            >
+              TEST
+            </LedgerCard>
+            <LedgerCard
+              onClick={() => {alert("AA")}}
+            >
+              TEST
+            </LedgerCard>
+            <LedgerCard
+              onClick={() => {alert("AA")}}
+            >
+              TEST
+            </LedgerCard>
+          </LedgerListLayout>
+        </div>
+      </section>
+
     </div>
   );
 }

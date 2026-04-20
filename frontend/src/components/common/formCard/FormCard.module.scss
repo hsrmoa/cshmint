@@ -1,0 +1,17 @@
+/* INPUT을 감싸는 Wrapper 관련된  CSS 정보 */
+@use '@/styles/abstracts' as *;
+
+
+.formCard {
+  @include card-base;
+  width: 100%;
+  max-width: 320px;
+  padding: 25px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.formCard button {
+  width: 100%;
+}
