@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 회원가입 Mapper -->
+<mapper namespace="com.cshbk.cshmint.cmmn.join.mapper.JoinMapper">
+
+  <!-- 회원가입 - 이메일 중복여부 체크-->
+  <select id="selectEmailCheck" parameterType="com.cshbk.cshmint.cmmn.join.vo.in.JoinEmailChkInVo" resultType="java.lang.Integer">
+    <!--JoinMapper.selectEmailCheck-->
+    SELECT COUNT(*) AS CNT
+    FROM TB_USER TU
+    WHERE TU.EMAIL = #{email}
+  </select>
+
+  <!-- 회원가입 - 회원등록 -->
+  <insert id="insertUser">
+    INSERT INTO TB_USER
+    (
+        USER_SEQ
+    ,   EMAIL
+    ,   PWD
+    ,   USER_NM
+    ,   PRO_IMG
+    ,   CREATE_DATE
+    ,   CREATE_USER_SEQ
+    ,   UPDATE_DATE
+    ,   UPDATE_USER_SEQ
+    ) VALUES (
+        (
+          SELECT (CASE WHEN MAX(USER_SEQ) IS NULL THEN 0 ELSE MAX(USER_SEQ) END) + 1
+          FROM TB_USER
+          WHERE USER_SEQ <![CDATA[<>]]> 99999
+        )
+    ,   #{email}
+    ,   #{pwd}
+    ,   #{userNm}
+    ,   #{proImg}
+    ,   CURRENT_TIMESTAMP
+    ,   #{createUserSeq}
+    ,   CURRENT_TIMESTAMP
+    ,   #{updateUserSeq}
+    )
+  </insert>
+</mapper>

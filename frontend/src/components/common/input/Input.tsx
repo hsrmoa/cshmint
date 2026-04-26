@@ -1,7 +1,7 @@
 import styles from "./Input.module.scss";
 import React from 'react';
+import { forwardRef } from 'react';
 import Icon from '@/components/common/icon/Icon';
-
 /**
  * input 박스의 Props 정보
  */
@@ -30,7 +30,7 @@ type InputProps = {
  * @param onSuffixClick input 박스 suffix 클릭 이벤트
  * @constructor
  */
-function Input({
+const Input = forwardRef<HTMLInputElement, any>(({
                  type = 'text',
                  value,
                  placeholder = '텍스트를 입력해주세요',
@@ -40,8 +40,9 @@ function Input({
                  suffix,
                  suffixType = 'text',
                  onSuffixClick,
-               }: InputProps) {
+               }: InputProps, ref) =>{
 
+  // INPUT 뒤에 아이콘 혹은 텍스트 가지고있는 여부
   const hasSuffix = !!suffix;
   const hasActionSuffix = type === 'search' && !!onSuffixClick;
 
@@ -69,6 +70,7 @@ function Input({
         className={inputClass}
         placeholder={placeholder}
         disabled={disabled}
+        ref={ref}
       />
       {hasSuffix && !hasActionSuffix && (
         <span className={styles.suffix}>
@@ -92,6 +94,6 @@ function Input({
       )}
     </div>
   );
-}
+});
 
 export default Input;
