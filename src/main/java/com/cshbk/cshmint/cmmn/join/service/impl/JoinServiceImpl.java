@@ -2,9 +2,11 @@ package com.cshbk.cshmint.cmmn.join.service.impl;
 
 import com.cshbk.cshmint.cmmn.join.mapper.JoinMapper;
 import com.cshbk.cshmint.cmmn.join.service.JoinService;
-import com.cshbk.cshmint.cmmn.join.vo.in.JoinEmailChkInVo;
 import com.cshbk.cshmint.cmmn.join.vo.in.JoinUserInVo;
+import com.cshbk.cshmint.common.enums.ErrorCode;
+import com.cshbk.cshmint.common.exception.CshMintBizException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,15 +22,18 @@ public class JoinServiceImpl implements JoinService {
   @Autowired
   private JoinMapper joinMapper;
 
+  @Autowired
+  private PasswordEncoder passwordEncoder;
+
   /**
    * 회원가입 > 이메일 중복여부 체크
    *
-   * @param joinEmailChkInVo 이메일 체크 IN VO
+   * @param joinUserInVo 이메일 체크 IN VO
    * @return
    */
   @Override
-  public int getEmailCheck(JoinEmailChkInVo joinEmailChkInVo) {
-    return joinMapper.selectEmailCheck(joinEmailChkInVo);
+  public int getEmailCheck(JoinUserInVo joinUserInVo) {
+    return joinMapper.selectEmailCheck(joinUserInVo);
   }
 
   /**
@@ -39,10 +44,23 @@ public class JoinServiceImpl implements JoinService {
    */
   @Override
   public int addUser(JoinUserInVo joinUserInVo) {
-      // 생성자,수정자 시스템관리자(999999)로 설정
-      joinUserInVo.setCreateUserSeq(999999);
-      joinUserInVo.setUpdateUserSeq(999999);
 
-      return joinMapper.insertUser(joinUserInVo);
+    // 1. 이메일 체크
+    int emailChkCnt = this.getEmailCheck(joinUserInVo);
+    // 이메일 존재여부
+    if (emailChkCnt > 0) {
+      throw new CshMintBizException(ErrorCode.DUPLICATE_CHECK, "이메일");
+    }
+
+    // 생성자,수정자 시스템관리자(99999)로 설정
+    joinUserInVo.setCreateUserSeq(99999);
+    joinUserInVo.setUpdateUserSeq(99999);
+
+    // 입력받은 비밀번호를 암호화(BCrypt 해시로 저장)
+    String encodedPwd = passwordEncoder.encode(joinUserInVo.getPwd());
+    // 암호화한 비밀번호를 재설정
+    joinUserInVo.setPwd(encodedPwd);
+
+    return joinMapper.insertUser(joinUserInVo);
   }
 }

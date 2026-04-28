@@ -1,6 +1,5 @@
 package com.cshbk.cshmint.cmmn.join.service;
 
-import com.cshbk.cshmint.cmmn.join.vo.in.JoinEmailChkInVo;
 import com.cshbk.cshmint.cmmn.join.vo.in.JoinUserInVo;
 
 /**
@@ -15,10 +14,10 @@ public interface JoinService {
   /**
    * 회원가입 > 이메일 중복여부 체크
    *
-   * @param joinEmailChkInVo 이메일 체크 IN VO
+   * @param joinUserInVo 이메일 체크 IN VO
    * @return
    */
-  int getEmailCheck(JoinEmailChkInVo joinEmailChkInVo);
+  int getEmailCheck(JoinUserInVo joinUserInVo);
 
   /**
    * 회원가입 > 사용자등록

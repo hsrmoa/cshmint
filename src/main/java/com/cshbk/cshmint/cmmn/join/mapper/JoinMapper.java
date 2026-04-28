@@ -1,6 +1,5 @@
 package com.cshbk.cshmint.cmmn.join.mapper;
 
-import com.cshbk.cshmint.cmmn.join.vo.in.JoinEmailChkInVo;
 import com.cshbk.cshmint.cmmn.join.vo.in.JoinUserInVo;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,10 +15,10 @@ public interface JoinMapper {
 
  /**
   * 회원가입 > 이메일 중복여부 체크
-  * @param joinEmailChkInVo 이메일 중복 체크 IN VO
+  * @param joinUserInVo 이메일 중복 체크 IN VO
   * @return
   */
- int selectEmailCheck(JoinEmailChkInVo joinEmailChkInVo);
+ int selectEmailCheck(JoinUserInVo joinUserInVo);
 
  /**
   * 회원가입 > 사용자등록

@@ -6,7 +6,7 @@
 <mapper namespace="com.cshbk.cshmint.cmmn.join.mapper.JoinMapper">
 
   <!-- 회원가입 - 이메일 중복여부 체크-->
-  <select id="selectEmailCheck" parameterType="com.cshbk.cshmint.cmmn.join.vo.in.JoinEmailChkInVo" resultType="java.lang.Integer">
+  <select id="selectEmailCheck" parameterType="com.cshbk.cshmint.cmmn.join.vo.in.JoinUserInVo" resultType="java.lang.Integer">
     <!--JoinMapper.selectEmailCheck-->
     SELECT COUNT(*) AS CNT
     FROM TB_USER TU
@@ -14,7 +14,7 @@
   </select>
 
   <!-- 회원가입 - 회원등록 -->
-  <insert id="insertUser">
+  <insert id="insertUser" parameterType="com.cshbk.cshmint.cmmn.join.vo.in.JoinUserInVo">
     INSERT INTO TB_USER
     (
         USER_SEQ

@@ -10,15 +10,20 @@ spring:
     username: srhan
     password: srhan@0310
     driver-class-name: org.postgresql.Driver
-  mybatis:
-      mapper-locations: classpath:/mapper/**/*.xml
-      type-aliases-package: com.cshbk.cshmint
-      configuration:
-        map-underscore-to-camel-case: true
   application:
     name: cshmint
+  messages:
+    basename: messages
+    encoding: UTF-8
 management:
   endpoints:
     web:
       exposure:
         include: health
+
+
+mybatis:
+  mapper-locations: classpath:/mapper/**/*.xml
+  type-aliases-package: com.cshbk.cshmint
+  configuration:
+    map-underscore-to-camel-case: true

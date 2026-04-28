@@ -28,4 +28,7 @@ public class JoinUserInVo extends CommonInVo {
   @NotEmpty(message = "사용자이름을 입력해주세요")
   @Schema(description = "사용자이름", required = true)
   private String userNm;
+
+  @Schema(description = "사용자이미지")
+  private String proImg;
 }
