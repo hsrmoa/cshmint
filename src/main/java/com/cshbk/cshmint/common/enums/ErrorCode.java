@@ -15,6 +15,7 @@ import lombok.Getter;
 public enum ErrorCode {
   // 중복체크
   DUPLICATE_CHECK(400,"CMMN_ERROR_MSG_001"),
+  LOGIN_FAIL(401,"CMMN_ERROR_MSG_002"),
   // 서버오류
   SERVER_ERROR_500(500, "SERVER_CMM_001")
   ;

@@ -5,5 +5,17 @@
 <!-- 로그인 Mapper -->
 <mapper namespace="com.cshbk.cshmint.cmmn.login.mapper.LoginMapper">
 
+  <select id="selectUser" parameterType="com.cshbk.cshmint.cmmn.login.vo.in.LoginInVo" resultType="com.cshbk.cshmint.common.vo.out.UserVo">
+    <!--LoginMapper.selectUser-->
+    <!--로그인할 사용자 정보 조회-->
+    SELECT
+      USER_SEQ
+    ,	EMAIL
+    ,	PWD
+    ,	USER_NM
+    ,	PRO_IMG
+    FROM TB_USER
+    WHERE EMAIL = #{email}
+  </select>
 
 </mapper>

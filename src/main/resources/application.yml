@@ -22,8 +22,14 @@ management:
         include: health
 
 
+#mybatis
 mybatis:
   mapper-locations: classpath:/mapper/**/*.xml
   type-aliases-package: com.cshbk.cshmint
   configuration:
     map-underscore-to-camel-case: true
+
+#JWT
+jwt:
+  secret: "my-super-secret-key-my-super-secret-key-123456"
+  expiration: 3600000 # 1시간
