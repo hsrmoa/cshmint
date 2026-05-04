@@ -1,13 +1,7 @@
-// import Guide from "@/pages/guide/Guide.tsx";
-import './styles/globals.scss';
-import Login from "@/pages/common/login/Login.tsx";
+import Router from '@/routes/Router';
 
 function App() {
-  return (
-    <>
-      <Login></Login>
-    </>
-  )
+  return <Router />;
 }
 
 export default App

@@ -1,0 +1,1 @@
+export * from './common.paths';  // 공통상수

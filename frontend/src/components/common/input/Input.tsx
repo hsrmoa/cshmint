@@ -1,7 +1,8 @@
 import styles from "./Input.module.scss";
 import React from 'react';
-import { forwardRef } from 'react';
+import {forwardRef} from 'react';
 import Icon from '@/components/common/icon/Icon';
+
 /**
  * input 박스의 Props 정보
  */
@@ -12,9 +13,11 @@ type InputProps = {
   disabled?: boolean;
   className?: string | '';
   isError?: boolean;
+  inputId?: string;
   suffix?: React.ReactNode;
   suffixType?: 'icon' | 'text';
   onSuffixClick?: () => void;
+  onChange?: React.ChangeEventHandler<HTMLInputElement, HTMLInputElement> | undefined;
 }
 
 /**
@@ -31,16 +34,18 @@ type InputProps = {
  * @constructor
  */
 const Input = forwardRef<HTMLInputElement, any>(({
-                 type = 'text',
-                 value,
-                 placeholder = '텍스트를 입력해주세요',
-                 disabled = false,
-                 isError = false,
-                 className = '',
-                 suffix,
-                 suffixType = 'text',
-                 onSuffixClick,
-               }: InputProps, ref) =>{
+                                                   type = 'text',
+                                                   value,
+                                                   placeholder = '텍스트를 입력해주세요',
+                                                   inputId = '',
+                                                   disabled = false,
+                                                   isError = false,
+                                                   className = '',
+                                                   suffix,
+                                                   suffixType = 'text',
+                                                   onSuffixClick,
+                                                   onChange
+                                                 }: InputProps, ref) => {
 
   // INPUT 뒤에 아이콘 혹은 텍스트 가지고있는 여부
   const hasSuffix = !!suffix;
@@ -70,7 +75,9 @@ const Input = forwardRef<HTMLInputElement, any>(({
         className={inputClass}
         placeholder={placeholder}
         disabled={disabled}
+        onChange={onChange}
         ref={ref}
+        id={inputId}
       />
       {hasSuffix && !hasActionSuffix && (
         <span className={styles.suffix}>

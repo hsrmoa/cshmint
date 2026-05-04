@@ -1,7 +1,14 @@
 @use '@/styles/abstracts' as *;
 
+/** 로그인 SCSS **/
 
 .loginBody{
    background: $color-surface;
    height: 100vh;
+}
+
+.loginForgetText {
+   font-size:  $font-size-12;
+   color:$color-txt;
+   text-decoration: underline;
 }

@@ -5,7 +5,13 @@ import InputWrap from "@/components/common/inputWrap";
 import Input from "@/components/common/input";
 import ButtonWrap from "@/components/common/buttonWrap";
 import Button from "@/components/common/button";
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { emailValid, pwdValid } from "@/utils/validation.ts";
+import { isEmpty } from "@/utils/cmmnUtil.ts";
+import { Link } from "react-router-dom";
+import {useAppNavigate} from "@/hooks/useAppNavigate";
+
+// import { loginApi } from "@/api/common/login.api.ts";
 
 /**
  * 로그인 페이지
@@ -21,52 +27,119 @@ function Login() {
    */
   // 이메일 주소 INPUT REF
   const emailRef = useRef<HTMLInputElement>(null);
+  const [email, setEmail] = useState<string>("");
+  const [isEmailError, setIsEmailError] = useState<boolean>(false);
+  const [emailErrMsg, setEmailErrMsg] = useState<string>("");
   // 비밀번호 INPUT REF
   const pwdRef = useRef<HTMLInputElement>(null);
+  const [password, setPassword] = useState<string>("");
+  const [isPwdError, setIsPwdError] = useState<boolean>(false);
+  const [pwdErrorMsg, setPwdErrorMsg] = useState<string>("");
 
+  // 이동관련 HOOK
+  const { goJoin } = useAppNavigate();
+
+  /**
+   * ERROR 관련 Clear
+   */
+  const onErrorClear = () => {
+    setIsEmailError(false);
+    setEmailErrMsg("");
+    setIsPwdError(false);
+    setPwdErrorMsg("");
+  }
+  /**
+   * 이메일 주소 Change 이벤트
+   * @param e
+   */
+  const onInputChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
+    onErrorClear();
+    // 이메일 주소
+    if("email" === e.target.id) {
+      setEmail(e.target?.value);
+    } else {
+      setPassword(e.target.value);
+    }
+  }
 
   /**
    * 로그인 버튼 클릭 이벤트
    */
   const loginClick = () => {
-    alert("로그인 버튼 click");
+    // 로그인 실행전 validation 체크
+    if(!loginValidation()) return false;
+  }
+
+  /**
+   * 로그인 하지 전 validation 체크
+   */
+  const loginValidation = () => {
+    // 입력한 이메일주소 validtaion
+    const emailValidMsg = emailValid(email);
+    if(!isEmpty(emailValidMsg)) {
+      setIsEmailError(true);
+      setEmailErrMsg(emailValidMsg);
+      emailRef.current?.focus();
+      return false;
+    }
+    // 입력한 비밀번호 validation 체크
+    const pwdValidMsg = pwdValid(password);
+    if(!isEmpty(pwdValidMsg)) {
+      setIsPwdError(true);
+      setPwdErrorMsg(pwdValidMsg);
+      pwdRef.current?.focus();
+      return false;
+    }
+    return true;
   }
 
   /**
    * 회원가입 버튼 클릭 이벤트
    */
   const moveJoinClick = () => {
-
-    alert("회원가입 버튼 click");
+    goJoin();
   }
   return (
     <div className={styles.loginBody}>
       <AuthLayout>
         <FormCard>
           <InputWrap
-            label="Email"
+            label="이메일"
             isFullWidth={true}
+            isError={isEmailError}
+            errorMessage={emailErrMsg}
           >
             <Input
               type="text"
               placeholder="이메일주소를 입력해주세요"
               ref={emailRef}
+              value={email}
+              inputId="email"
+              isError={isEmailError}
+              onChange={onInputChange}
             />
           </InputWrap>
           <InputWrap
-            label="Password"
+            label="비밀번호"
             isFullWidth={true}
+            isError={isPwdError}
+            errorMessage={pwdErrorMsg}
           >
             <Input
               type="password"
               placeholder="비밀번호를 입력해주세요"
               ref={pwdRef}
+              value={password}
+              isError={isPwdError}
+              id="pwd"
+              onChange={onInputChange}
             />
           </InputWrap>
           <ButtonWrap>
             <Button variant="primary" OnClick={loginClick}>로그인</Button>
             <Button variant="secondary" OnClick={moveJoinClick}>회원가입</Button>
           </ButtonWrap>
+          <Link className={styles.loginForgetText}  to="/">Forget Password?</Link>
         </FormCard>
       </AuthLayout>
     </div>

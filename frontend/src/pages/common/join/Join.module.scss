@@ -1,0 +1,8 @@
+@use '@/styles/abstracts' as *;
+
+/** 회원가입 SCSS **/
+
+.joinBody {
+  background: $color-surface;
+  height: 100vh;
+}
