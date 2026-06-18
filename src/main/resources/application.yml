@@ -6,9 +6,9 @@ server:
 # SPRING NAME
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/srcshbk
-    username: srhan
-    password: srhan@0310
+    url: jdbc:postgresql://aws-1-ap-northeast-2.pooler.supabase.com:6543/postgres?currentSchema=public
+    username: postgres.ftoqewhpbrypaeclukso
+    password: mintHouse1234@@
     driver-class-name: org.postgresql.Driver
   application:
     name: cshmint
@@ -21,6 +21,15 @@ management:
       exposure:
         include: health
 
+#logging
+logging:
+  level:
+    org.springframework.jdbc.core: debug
+    org.springframework.jdbc.core.StatementCreatorUtils: trace
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+    com.zaxxer.hikari: debug
+    org.mybatis: debug
 
 #mybatis
 mybatis:
@@ -28,6 +37,7 @@ mybatis:
   type-aliases-package: com.cshbk.cshmint
   configuration:
     map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 #JWT
 jwt:

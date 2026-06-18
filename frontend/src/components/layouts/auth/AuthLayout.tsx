@@ -5,18 +5,25 @@ import logo from '@/assets/mintLogo.png';
  */
 type AuthLayoutProps = {
   children: React.ReactNode;
+  logoClick?: () => void;
 }
 
 /**
  * 로그인 > 로그인 레이아웃 Layout
  * @param children
+ * @param logoClick
  * @constructor
  */
-export default function AuthLayout({ children }: AuthLayoutProps) {
+export default function AuthLayout({ children ,logoClick}: AuthLayoutProps) {
+  const logoClass =[
+    styles.logo,
+    logoClick ? styles.logoCursor : ''
+  ].filter(Boolean)
+    .join(' ')
   return (
       <div className={styles.loginPage}>
         <div className={styles.logoArea}>
-          <img src={logo} alt="MINT" className={styles.logo}/>
+          <img src={logo} alt="MINT" className={logoClass} onClick={logoClick}/>
           <p className={styles.subTitle}>
             My Income &amp; Needs Tracker
           </p>

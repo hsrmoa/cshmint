@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { cmmRoutes } from './cmm.routes';
 
 export default function Router() {
-  const allRoutes =[
+  const allRoutes = [
     ...cmmRoutes
   ]
   return (

@@ -5,6 +5,7 @@ import com.cshbk.cshmint.cmmn.join.service.JoinService;
 import com.cshbk.cshmint.cmmn.join.vo.in.JoinUserInVo;
 import com.cshbk.cshmint.common.enums.ErrorCode;
 import com.cshbk.cshmint.common.exception.CshMintBizException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
  * Description :
  * ==========================================
  */
+@Slf4j
 @Service
 public class JoinServiceImpl implements JoinService {
 
@@ -44,7 +46,8 @@ public class JoinServiceImpl implements JoinService {
    */
   @Override
   public int addUser(JoinUserInVo joinUserInVo) {
-
+    log.info("=============== 2.사용자등록 서비스 =============");
+    log.info("joinUserInVo:{}", joinUserInVo);
     // 1. 이메일 체크
     int emailChkCnt = this.getEmailCheck(joinUserInVo);
     // 이메일 존재여부

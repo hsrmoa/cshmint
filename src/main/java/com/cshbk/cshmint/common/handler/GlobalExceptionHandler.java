@@ -4,6 +4,7 @@ import com.cshbk.cshmint.common.exception.CshMintBizException;
 import com.cshbk.cshmint.common.utils.MessageUtil;
 import com.cshbk.cshmint.common.vo.out.ResultOutVo;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * Description :
  * ==========================================
  */
+@Slf4j
 @RestControllerAdvice
 @RequiredArgsConstructor
 public class GlobalExceptionHandler {
@@ -31,6 +33,7 @@ public class GlobalExceptionHandler {
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResultOutVo<?> handleValidation(MethodArgumentNotValidException e) {
+    log.error("서버 오류 발생", e); // 이게 핵심
     String messsage = e.getBindingResult()
             .getFieldErrors()
             .get(0)

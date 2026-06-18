@@ -9,7 +9,8 @@ import { useRef, useState } from 'react';
 import { emailValid, pwdValid } from "@/utils/validation.ts";
 import { isEmpty } from "@/utils/cmmnUtil.ts";
 import { Link } from "react-router-dom";
-import {useAppNavigate} from "@/hooks/useAppNavigate";
+import {useAppNavigate} from "@/hooks/navigate/useAppNavigate.ts";
+import { loginApi } from "@/api/common/login.api.ts";
 
 // import { loginApi } from "@/api/common/login.api.ts";
 
@@ -65,9 +66,18 @@ function Login() {
   /**
    * 로그인 버튼 클릭 이벤트
    */
-  const loginClick = () => {
+  const loginClick = async () => {
     // 로그인 실행전 validation 체크
     if(!loginValidation()) return false;
+    const response = await loginApi({
+      email: email,
+      password: password}
+    );
+    console.log(response);
+
+    if(response.status === 200) {
+      alert("로그인 성공 [사용자:" + response?.data?.userNm +"]" );
+    }
   }
 
   /**

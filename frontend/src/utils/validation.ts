@@ -20,5 +20,15 @@ export const pwdValid = (pwd: string) => {
   return "";
 }
 
+/**
+ * 비밀번호 validtaion 체크
+ * @param pwd
+ */
+export const pwdChkValid = (pwd: string) => {
+  if(isEmpty(pwd)) return "비밀번호 확인을 입력해주세요.";
+  if(!isPwdFormat(pwd)) return "비밀번호 확인은 대소문자, 숫자, 특수문자를 포함한 8자 이상이어야 합니다.";
+  return "";
+}
+
 
 
