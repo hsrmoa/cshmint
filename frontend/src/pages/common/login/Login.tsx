@@ -77,6 +77,8 @@ function Login() {
 
     if(response.status === 200) {
       alert("로그인 성공 [사용자:" + response?.data?.userNm +"]" );
+    } else {
+      alert("로그인 실패");
     }
   }
 
