@@ -12,8 +12,6 @@ import { Link } from "react-router-dom";
 import {useAppNavigate} from "@/hooks/navigate/useAppNavigate.ts";
 import { loginApi } from "@/api/common/login.api.ts";
 
-// import { loginApi } from "@/api/common/login.api.ts";
-
 /**
  * 로그인 페이지
  * @constructor

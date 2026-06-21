@@ -3,5 +3,6 @@
  */
 export const COMMON_PATHS = {
   LOGIN: '/login',
-  JOIN: '/join'
+  JOIN: '/join',
+  MAIN: '/main'
 }
