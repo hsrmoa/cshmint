@@ -8,6 +8,9 @@ export default defineConfig({
   server: {
     port: 3000,
     strictPort: true,
+    watch: {
+      usePolling: true,
+    }
   },
   build: {
     outDir: '../src/main/resources/static',

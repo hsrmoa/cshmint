@@ -73,21 +73,19 @@ function Login() {
   const loginClick = async () => {
     // 로그인 실행전 validation 체크
     if(!loginValidation()) return false;
+    // 로그인 시도 (백엔드 서버랑 통신)
     const response = await loginApi({
       email: email,
       password: password}
     );
-    console.log(response);
-
+    // 로그인 시도 응답값이 성공일때 ( status 코드가 200 = 성공)
     if(response.status === 200) {
-      console.log(response.data);
-      alert("로그인 성공 [사용자:" + response?.data?.userInfo.userNm +"]" );
       // 사용자 정보를 localStorage에 저장
       dispatch(login(response.data));
       // 메인화면으로 이동
       goMain()
     } else {
-      alert("로그인 실패");
+      alert(response.message);
     }
   }
 

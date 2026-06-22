@@ -148,10 +148,7 @@ function Guide() {
         <div style={{display: 'flex', gap: '12px', marginTop: '12px'}}>
           <LedgerListLayout
             title="가계부 목록"
-            searchSort={<ButtonWrap>
-              <Button variant="success">success</Button>
-              <Button variant="success">success</Button>
-            </ButtonWrap>}
+            searchSort={<SelectBox options={[{value: '', label:'생성일 빠른 순'}, {value: '1', label:'1'}]}/>}
             bodyType="cardList"
           >
             <LedgerCard
