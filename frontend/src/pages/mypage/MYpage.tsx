@@ -89,8 +89,19 @@ import LedgerListLayout from '@/components/layouts/ledgerList/LedgerListLayout.t
 function MYPAGE() {
     //카드 배열 정의?
   const LedgerCards = [
-    {title: '소라빵', owner: '소라빵', createAt: '2025-04-19'},
-    {title: '소라빵', owner: '소라빵', createAt: '2025-04-20'},
+    {title: '나의 가계부',
+    owner: '소라빵', 
+    className: 'green', 
+    ownerColor: 'green', 
+    createAt: '2025-04-19'
+},
+    {title: '수연이 개발자 만들기_회비', 
+        owner: '소라빵', 
+        members: ['소라빵', '인우빵', '수연빵'],
+        className: 'orange', 
+        ownerColor: 'orange', 
+        createAt: '2025-04-20'
+    },
   ]
 
   return (
@@ -104,8 +115,13 @@ function MYPAGE() {
       {LedgerCards.map((card) => (
         <LedgerCard
           title={card.title}
+          className={card.className as 'orange' | 'green'| ""}
         >
-          <LedgerCardContent owner={card.owner} createAt={card.createAt}/>
+          <LedgerCardContent 
+          owner={card.owner} 
+          ownerColor={card.ownerColor as 'green' | 'orange'} 
+          members={card.members}
+          createAt={card.createAt}/>
         </LedgerCard>
       ))}
     </LedgerListLayout>
