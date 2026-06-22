@@ -100,6 +100,7 @@ function MYPAGE() {
       searchSort=
         {<SelectBox options={[{value: '', label:'전체'}, {value: '1', label:'1'}]}/>}
     >
+        {/* //정의된 카드 배열을 map으로 반복하여 LedgerCard 컴포넌트 생성 */}
       {LedgerCards.map((card) => (
         <LedgerCard
           title={card.title}
