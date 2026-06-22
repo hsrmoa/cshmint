@@ -48,13 +48,18 @@ public class LoginServiceImpl implements LoginService {
     }
     // 이메일 존재 + 비밀번호 매칭 ==. 로그인성공
     // 로그인 TOKEN 생성
-    String acessToken = jwtUtil.createToken(userVo.getEmail());
+    String accessToken = jwtUtil.createToken(userVo.getEmail());
+    UserVo userInfo = UserVo.builder()
+            .userSeq(userVo.getUserSeq())
+            .email(userVo.getEmail())
+            .proImg(userVo.getProImg())
+            .userNm(userVo.getUserNm())
+            .build();
+
     // 로그인 정보 반환
     return LoginOutVo.builder()
-            .acessToken(acessToken)
-            .email(userVo.getEmail())
-            .userNm(userVo.getUserNm())
-            .userSeq(userVo.getUserSeq())
+            .accessToken(accessToken)
+            .userInfo(userInfo)
             .build();
   }
 }

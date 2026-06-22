@@ -1,5 +1,6 @@
 package com.cshbk.cshmint.cmmn.login.vo.out;
 
+import com.cshbk.cshmint.common.vo.out.UserVo;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,9 +17,7 @@ import lombok.Setter;
 @Builder
 public class LoginOutVo {
 
-  private String acessToken;   // JWT 인증토큰
-  private int userSeq;
-  private String userNm;
-  private String email;
+  private String accessToken;   // JWT 인증토큰
+  private UserVo userInfo;
 
 }

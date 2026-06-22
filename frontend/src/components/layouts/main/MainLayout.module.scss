@@ -1,0 +1,24 @@
+/*******************************
+    Main Layout
+ ********************************/
+@use '@/styles/abstracts' as *;
+
+
+.container {
+  background-color: $color-white;
+  display: flex;
+  height: calc(100vh - 64px);
+}
+
+.sidePanel {
+  width: 280px;
+  flex-shrink: 0;
+  border-right: 1px solid $color-secondary;
+  padding: 24px;
+}
+
+.content {
+  flex: 1;
+  overflow: auto;
+  padding: 24px;
+}

@@ -6,6 +6,7 @@ export const useAppNavigate = () => {
 
   return {
     goLogin: () => navigate(COMMON_PATHS.LOGIN),
-    goJoin: () => navigate(COMMON_PATHS.JOIN)
+    goJoin: () => navigate(COMMON_PATHS.JOIN),
+    goMain: () => navigate(COMMON_PATHS.MAIN),
   }
 };

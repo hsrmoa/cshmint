@@ -9,7 +9,7 @@ export const isEmailFormat = (email: string) => {
 /**
  * STRING 형식의 isNull 여부 체크
  */
-export const isEmpty = (str: string) => {
+export const isEmpty = (str: string | null) => {
   if(str === null || str === "" || str === undefined) {
     return true;
   } else {

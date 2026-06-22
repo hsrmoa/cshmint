@@ -1,4 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
+import { isEmpty } from "@/utils/cmmnUtil.ts";
 
 /**
  *  로그인한 사용자 정보
@@ -7,6 +8,7 @@ interface UserInfo {
   email: string;
   userNm: string;
   userSeq: number;
+  proImg: string;
 }
 
 /**
@@ -24,7 +26,7 @@ interface AuthState {
 const initialState: AuthState = {
   accessToken: localStorage.getItem("accessToken"),
   userInfo: JSON.parse(localStorage.getItem("userInfo") || "null"),
-  isLogin: !!localStorage.getItem("accessToken"),
+  isLogin: !isEmpty(localStorage.getItem("accessToken")),
 };
 
 

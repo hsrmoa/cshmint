@@ -9,8 +9,11 @@ import { useRef, useState } from 'react';
 import { emailValid, pwdValid } from "@/utils/validation.ts";
 import { isEmpty } from "@/utils/cmmnUtil.ts";
 import { Link } from "react-router-dom";
-import {useAppNavigate} from "@/hooks/navigate/useAppNavigate.ts";
+import { useAppNavigate } from "@/hooks/navigate/useAppNavigate.ts";
 import { loginApi } from "@/api/common/login.api.ts";
+import { useDispatch } from "react-redux";
+import { login } from '@/features/authSlice';
+
 
 /**
  * 로그인 페이지
@@ -36,7 +39,10 @@ function Login() {
   const [pwdErrorMsg, setPwdErrorMsg] = useState<string>("");
 
   // 이동관련 HOOK
-  const { goJoin } = useAppNavigate();
+  const { goJoin, goMain } = useAppNavigate();
+
+  // 로그인 성공 처리 ( Store에 로그인 정보 저장)
+  const dispatch = useDispatch();
 
   /**
    * ERROR 관련 Clear
@@ -74,7 +80,12 @@ function Login() {
     console.log(response);
 
     if(response.status === 200) {
-      alert("로그인 성공 [사용자:" + response?.data?.userNm +"]" );
+      console.log(response.data);
+      alert("로그인 성공 [사용자:" + response?.data?.userInfo.userNm +"]" );
+      // 사용자 정보를 localStorage에 저장
+      dispatch(login(response.data));
+      // 메인화면으로 이동
+      goMain()
     } else {
       alert("로그인 실패");
     }

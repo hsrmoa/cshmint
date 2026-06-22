@@ -9,9 +9,24 @@ import RootRedirect from "@/routes/RootRedirect.tsx";
  * 공통 URL ROUTER
  */
 export const cmmRoutes =[
-  { path: '/guide', element: <Guide />, auth: false},
-  { path: '/login', element: <Login />, auth: false},
-  { path: '/join' , element: <Join />, auth: false},
-  { path: '/main' , element: <MainPage />, auth: true},
-  { path: '/', element: <RootRedirect /> }
+  {
+    path: '/'
+  , element: <RootRedirect />
+  }, {
+    path: '/guide'
+  , element: <Guide />
+  , auth: false
+  }, {
+    path: '/login'
+  , element: <Login />
+  , auth: false
+  }, {
+    path: '/join'
+  , element: <Join />
+  , auth: false
+  }, {
+    path: '/main'
+  , element: <MainPage />
+  , auth: true
+  }
 ];

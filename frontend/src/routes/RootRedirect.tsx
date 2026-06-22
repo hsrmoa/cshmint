@@ -9,8 +9,8 @@ import type {RootState} from "@/app/store.ts";
  */
 export default function RootRedirect() {
   // 로그인 여부
-  const isLogin = useSelector((state: RootState) => state.auth.isLogin)
-
+  const isLogin = useSelector((state: RootState) => state.auth.isLogin);
+  alert(isLogin)
   return (
     <Navigate
       to={isLogin ? "/main" : "/login"}
