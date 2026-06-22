@@ -87,19 +87,30 @@ import LedgerListLayout from '@/components/layouts/ledgerList/LedgerListLayout.t
  */
 
 function MYPAGE() {
-    return (
-  <LedgerListLayout
+    //카드 배열 정의?
+  const LedgerCards = [
+    {title: '소라빵', owner: '소라빵', createAt: '2025-04-19'},
+    {title: '소라빵', owner: '소라빵', createAt: '2025-04-20'},
+  ]
+
+  return (
+    <header>
+    <LedgerListLayout
       title="가계부 목록"
       bodyType="cardList"
     >
-    <LedgerCard
-        title = "소라빵"
-    >
-        <LedgerCardContent owner="소라빵" createAt="2025-04-19"/>
-    </LedgerCard>
-    <SelectBox options={[{value: '', label:'전체'}, {value: '1', label:'1'}]}/>
+      <SelectBox options={[{value: '', label:'전체'}, {value: '1', label:'1'}]}/>
 
-  </LedgerListLayout>
-    )
+      {LedgerCards.map((card) => (
+        <LedgerCard
+          title={card.title}
+        >
+          <LedgerCardContent owner={card.owner} createAt={card.createAt}/>
+        </LedgerCard>
+      ))}
+    </LedgerListLayout>
+    </header>
+  );
 }
+
 export default MYPAGE;
