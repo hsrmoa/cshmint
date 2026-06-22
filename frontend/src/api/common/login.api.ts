@@ -12,9 +12,6 @@ type LoginRequest = {
  */
 export const loginApi = async (data: LoginRequest) => {
   const response = await api.post('/api/login/loginAction', data);
-  console.log(response);
-  const accessToken = response.data.data.accessToken;
-  localStorage.setItem("accessToken", accessToken);
 
   return response.data;
 };

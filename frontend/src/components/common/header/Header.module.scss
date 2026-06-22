@@ -14,10 +14,23 @@
   box-sizing: border-box;
 }
 
+.logoArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  padding:12px;
+  gap:4px;
+}
+
+.logoCursor {
+  cursor: pointer;
+}
+
 .logo {
-  font-size: 32px;
-  font-weight: 700;
-  color: $color-white;
+  display: block;
+  width: 150px;
+  object-fit: contain;
 }
 
 .userInfo {
@@ -25,5 +38,5 @@
   align-items: center;
   gap: 12px;
   color: $color-white;
-  font-size: 14px;
+  font-size: $font-size-15;
 }

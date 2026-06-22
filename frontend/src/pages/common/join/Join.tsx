@@ -126,7 +126,7 @@ function Join() {
         logoClick={moveLogin}
       >
         <FormCard>
-          <ProfileImgUpload></ProfileImgUpload>
+          <ProfileImgUpload ></ProfileImgUpload>
           <InputWrap
             label="이메일"
             isFullWidth={true}
