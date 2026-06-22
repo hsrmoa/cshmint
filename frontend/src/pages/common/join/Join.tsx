@@ -10,13 +10,14 @@ import { useAppNavigate } from "@/hooks/navigate/useAppNavigate.ts";
 import { useRef, useState } from "react";
 import { emailValid, pwdChkValid, pwdValid} from "@/utils/validation.ts";
 import {isEmpty} from "@/utils/cmmnUtil.ts";
-
+import { joinApi } from "@/api/common/login.api";
+import type { JoinUserRequest} from "@/types/user.type.ts";
 /**
  * 회원가입 페이지
  * @constructor
  */
 function Join() {
-  const {goLogin} = useAppNavigate();
+  const { goLogin } = useAppNavigate();
   // 이메일주소
   const emailRef = useRef<HTMLInputElement>(null);
   const [email, setEmail] = useState<string>("");
@@ -37,9 +38,8 @@ function Join() {
 
   // 이름
   const nameRef = useRef<HTMLInputElement>(null);
-  // const [name, setName] = useState<string>("");
-  // const [isNameError, setIsNameError] = useState<boolean>(false);
-  // const [nameErrMsg, setNameErrMsg] = useState<string>("");
+  const [name, setName] = useState<string>("");
+
   /****** 이벤트 ************/
     // 로그인 화면으로 이동하기
   const moveLogin = () => {
@@ -47,9 +47,38 @@ function Join() {
     }
 
   // 회원가입 버튼 클릭
-  const onJoinClick = () => {
+  const onJoinClick = async  () => {
     if (!onJoinValidation()) return;
 
+    // 회원가입 API
+    const confirmResult = confirm("회원가입을 하시겠습니까?");
+    if(confirmResult) {
+      // 회원가입 실행
+      const params: JoinUserRequest = {
+        email: email,
+        pwd: pwd,
+        userNm: name,
+        proImg: ""
+      };
+      // 회원가입 실행
+      await onJoinAction(params);
+    }
+  }
+  /**
+   * 회원가입 > 회원가입 실행
+   * @param params
+   */
+  const onJoinAction = async (params: JoinUserRequest) => {
+    const response = await joinApi(params);
+    console.log(response);
+
+    if(response?.status === 200 && response?.data > 0) {
+      alert("회원가입에 성공하였습니다.");
+      // 로그인화면으로 이동
+      goLogin();
+    } else {
+      alert("회원가입에 실패하였습니다.");
+    }
 
   }
 
@@ -62,10 +91,9 @@ function Join() {
       setPwd(e.target?.value);
     } else if( "pwdChk" === e.target?.id) {
       setPwdChk(e.target?.value);
+    } else if( "name" === e.target?.id) {
+      setName(e.target?.value);
     }
-    // else if( "name" === e.target?.id) {
-    //   setName(e.target?.value);
-    // }
   }
 
   /****** 일반 함수 ****/
@@ -184,6 +212,8 @@ function Join() {
               inputId="name"
               placeholder="이름을 입력해주세요."
               ref={nameRef}
+              value={name}
+              onChange={onInputChange}
             />
           </InputWrap>
           <ButtonWrap>
