@@ -33,5 +33,5 @@ export const cmmRoutes =[
     path: '/mypage'
   , element: <MYPAGE />
   , auth: false
-  }, 
+  }
 ];
