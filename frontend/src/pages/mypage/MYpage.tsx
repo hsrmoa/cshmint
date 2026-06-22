@@ -94,13 +94,12 @@ function MYPAGE() {
   ]
 
   return (
-    <header>
     <LedgerListLayout
       title="가계부 목록"
       bodyType="cardList"
+      searchSort=
+        {<SelectBox options={[{value: '', label:'전체'}, {value: '1', label:'1'}]}/>}
     >
-      <SelectBox options={[{value: '', label:'전체'}, {value: '1', label:'1'}]}/>
-
       {LedgerCards.map((card) => (
         <LedgerCard
           title={card.title}
@@ -109,7 +108,7 @@ function MYPAGE() {
         </LedgerCard>
       ))}
     </LedgerListLayout>
-    </header>
+
   );
 }
 
