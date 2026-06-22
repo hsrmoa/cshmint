@@ -25,7 +25,7 @@ export default function AuthLayout({ children ,logoClick}: AuthLayoutProps) {
         <div className={styles.logoArea}>
           <img src={logo} alt="MINT" className={logoClass} onClick={logoClick}/>
           <p className={styles.subTitle}>
-            My Income &amp; Needs Tracker
+            테스트 &amp; Needs Tracker
           </p>
         </div>
         {children}
