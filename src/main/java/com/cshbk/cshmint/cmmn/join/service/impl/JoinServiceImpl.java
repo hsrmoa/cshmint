@@ -60,9 +60,9 @@ public class JoinServiceImpl implements JoinService {
     joinUserInVo.setUpdateUserSeq(99999);
 
     // 입력받은 비밀번호를 암호화(BCrypt 해시로 저장)
-    String encodedPwd = passwordEncoder.encode(joinUserInVo.getPwd());
+    String encodedPwd = passwordEncoder.encode(joinUserInVo.getPassword());
     // 암호화한 비밀번호를 재설정
-    joinUserInVo.setPwd(encodedPwd);
+    joinUserInVo.setPassword(encodedPwd);
 
     return joinMapper.insertUser(joinUserInVo);
   }

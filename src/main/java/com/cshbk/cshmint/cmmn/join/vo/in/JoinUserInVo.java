@@ -23,7 +23,7 @@ public class JoinUserInVo extends CommonInVo {
 
   @NotEmpty(message = "비밀번호를 입력해주세요")
   @Schema(description = "비밀번호", required = true)
-  private String pwd;
+  private String password;
 
   @NotEmpty(message = "사용자이름을 입력해주세요")
   @Schema(description = "사용자이름", required = true)

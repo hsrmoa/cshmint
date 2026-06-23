@@ -13,7 +13,8 @@ import { useAppNavigate } from "@/hooks/navigate/useAppNavigate.ts";
 import { loginApi } from "@/api/common/login.api.ts";
 import { useDispatch } from "react-redux";
 import { login } from '@/features/authSlice';
-import { LoginRequest } from "@/types/user.type.ts";
+import type {LoginRequest} from "@/types/user.type.ts";
+
 
 /**
  * 로그인 페이지
@@ -166,7 +167,7 @@ function Login() {
               ref={pwdRef}
               value={loginInfo.password}
               isError={!!errorMsgInfo.password}
-              id="pwd"
+              inputId="password"
               onChange={onInputChange}
             />
           </InputWrap>

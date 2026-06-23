@@ -33,7 +33,7 @@
           WHERE USER_SEQ <![CDATA[<>]]> 99999
         )
     ,   #{email}
-    ,   #{pwd}
+    ,   #{password}
     ,   #{userNm}
     ,   #{proImg}
     ,   CURRENT_TIMESTAMP
