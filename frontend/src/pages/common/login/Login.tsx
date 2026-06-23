@@ -13,13 +13,20 @@ import { useAppNavigate } from "@/hooks/navigate/useAppNavigate.ts";
 import { loginApi } from "@/api/common/login.api.ts";
 import { useDispatch } from "react-redux";
 import { login } from '@/features/authSlice';
-
+import { LoginRequest } from "@/types/user.type.ts";
 
 /**
  * 로그인 페이지
  * @constructor
  */
 function Login() {
+  /********************** 변수 & STATE 선언 *******************/
+  // 이동관련 HOOK
+  const { goJoin, goMain } = useAppNavigate();
+
+  // 로그인 성공 처리 ( Store에 로그인 정보 저장)
+  const dispatch = useDispatch();
+
   /**
    * REF
    * 1. 정의 : DOM이나 컴포넌트를 "직접 잡어서 제어" 하는 도구
@@ -29,29 +36,28 @@ function Login() {
    */
   // 이메일 주소 INPUT REF
   const emailRef = useRef<HTMLInputElement>(null);
-  const [email, setEmail] = useState<string>("");
-  const [isEmailError, setIsEmailError] = useState<boolean>(false);
-  const [emailErrMsg, setEmailErrMsg] = useState<string>("");
   // 비밀번호 INPUT REF
   const pwdRef = useRef<HTMLInputElement>(null);
-  const [password, setPassword] = useState<string>("");
-  const [isPwdError, setIsPwdError] = useState<boolean>(false);
-  const [pwdErrorMsg, setPwdErrorMsg] = useState<string>("");
 
-  // 이동관련 HOOK
-  const { goJoin, goMain } = useAppNavigate();
-
-  // 로그인 성공 처리 ( Store에 로그인 정보 저장)
-  const dispatch = useDispatch();
+  // 로그인 입력 정보
+  const [loginInfo, setLoginInfo] = useState<LoginRequest>({
+    email: "",
+    password: ""
+  });
+  //  로그인 에러 정보
+  const [ errorMsgInfo, setErrorMsgInfo] = useState({
+    email: "",
+    password: ""
+  });
 
   /**
    * ERROR 관련 Clear
    */
   const onErrorClear = () => {
-    setIsEmailError(false);
-    setEmailErrMsg("");
-    setIsPwdError(false);
-    setPwdErrorMsg("");
+    setErrorMsgInfo({
+      email: "",
+      password: ""
+    });
   }
   /**
    * 이메일 주소 Change 이벤트
@@ -59,12 +65,20 @@ function Login() {
    */
   const onInputChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
     onErrorClear();
-    // 이메일 주소
-    if("email" === e.target.id) {
-      setEmail(e.target?.value);
-    } else {
-      setPassword(e.target.value);
-    }
+
+    // LoginInfo 정보에 넣기
+    onSetLoginInfo(e.target.id, e.target.value);
+  }
+  /**
+   *  INPUT 박스에서 입력한 값 LoginInfo 정보에 넣기
+   * @param key  loginINfo
+   * @param value
+   */
+  const onSetLoginInfo = (key: keyof LoginRequest, value:string) => {
+    setLoginInfo((prev) => ({
+      ...prev,
+      [key]: value,
+    }))
   }
 
   /**
@@ -73,11 +87,9 @@ function Login() {
   const loginClick = async () => {
     // 로그인 실행전 validation 체크
     if(!loginValidation()) return false;
+
     // 로그인 시도 (백엔드 서버랑 통신)
-    const response = await loginApi({
-      email: email,
-      password: password}
-    );
+    const response = await loginApi(loginInfo);
     // 로그인 시도 응답값이 성공일때 ( status 코드가 200 = 성공)
     if(response.status === 200) {
       // 사용자 정보를 localStorage에 저장
@@ -94,18 +106,22 @@ function Login() {
    */
   const loginValidation = () => {
     // 입력한 이메일주소 validtaion
-    const emailValidMsg = emailValid(email);
+    const emailValidMsg = emailValid(loginInfo.email);
     if(!isEmpty(emailValidMsg)) {
-      setIsEmailError(true);
-      setEmailErrMsg(emailValidMsg);
+      setErrorMsgInfo((prev) => ({
+        ...prev,
+        "email": emailValidMsg
+      }))
       emailRef.current?.focus();
       return false;
     }
     // 입력한 비밀번호 validation 체크
-    const pwdValidMsg = pwdValid(password);
+    const pwdValidMsg = pwdValid(loginInfo.password);
     if(!isEmpty(pwdValidMsg)) {
-      setIsPwdError(true);
-      setPwdErrorMsg(pwdValidMsg);
+      setErrorMsgInfo((prev) => ({
+        ...prev,
+        "password": pwdValidMsg
+      }))
       pwdRef.current?.focus();
       return false;
     }
@@ -125,31 +141,31 @@ function Login() {
           <InputWrap
             label="이메일"
             isFullWidth={true}
-            isError={isEmailError}
-            errorMessage={emailErrMsg}
+            isError={!!errorMsgInfo.email}
+            errorMessage={errorMsgInfo.email}
           >
             <Input
               type="text"
               placeholder="이메일주소를 입력해주세요"
               ref={emailRef}
-              value={email}
+              value={loginInfo.email}
               inputId="email"
-              isError={isEmailError}
+              isError={!!errorMsgInfo.email}
               onChange={onInputChange}
             />
           </InputWrap>
           <InputWrap
             label="비밀번호"
             isFullWidth={true}
-            isError={isPwdError}
-            errorMessage={pwdErrorMsg}
+            isError={!!errorMsgInfo.password}
+            errorMessage={errorMsgInfo.password}
           >
             <Input
               type="password"
               placeholder="비밀번호를 입력해주세요"
               ref={pwdRef}
-              value={password}
-              isError={isPwdError}
+              value={loginInfo.password}
+              isError={!!errorMsgInfo.password}
               id="pwd"
               onChange={onInputChange}
             />
