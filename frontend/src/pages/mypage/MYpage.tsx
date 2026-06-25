@@ -6,6 +6,7 @@ import InputWrap from '@/components/common/inputWrap/InputWrap';
 import ProfileImgUpload from '@/components/common/prifileImgUpload/ProfileImgUpload';
 import LedgerListLayout from '@/components/layouts/ledgerList/LedgerListLayout.tsx';
 import { useState } from 'react';
+import api from "@/api/axios";
 
 /**
  * 로그인 > 마이페이지 수정 layout
@@ -15,12 +16,20 @@ import { useState } from 'react';
 
   const [email, setEmail] = useState<String>("");
 
+  const onClickEvent  = async ()=> {
+    const params = {
+      userSeq: 2
+    }
+    const reaponse = await api.post("/api/mypage/selectMypageUser", params);
+    console.log(reaponse.data);
+
+  }
   return (
     <LedgerListLayout
         title="내 정보 설정"
         searchSort={<ButtonWrap>
               <Button variant="success" 
-              OnClick={() => {alert("저장되었습니다.");}}
+              OnClick={onClickEvent}
               >저장</Button>
             </ButtonWrap>}   
     >
