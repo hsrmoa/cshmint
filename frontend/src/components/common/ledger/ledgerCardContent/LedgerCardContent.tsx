@@ -1,14 +1,19 @@
 import styles from './LedgerCardContent.module.scss';
 
+// 가계부 카드 컬러정보
 type OwnerColor = 'orange' | 'green';
 
 /**
  * 가계부 > 카드목록 > 내용 파라미터
  */
 type LedgerCardContentProps = {
+  // 가계부 카드 타이틀(=소유자)
   owner: string;
+  // 가계부 내용( 사용자)
   members?: string[];
+  // 생성일자
   createAt?: string;
+  // 카드 색상정보
   ownerColor?: OwnerColor
 }
 /**

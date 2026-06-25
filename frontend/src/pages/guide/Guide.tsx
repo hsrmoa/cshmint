@@ -14,6 +14,7 @@ import LedgerCardContent from "@/components/common/ledger/ledgerCardContent";
 import FormList from "@/components/common/form/formList/FormList";
 import FormRow from "@/components/common/form/formRow/FormRow.tsx";
 import Table from "@/components/common/table/Table.tsx";
+import IconButton from "@/components/common/icon/IconButton.tsx";
 
 /**
  *  @name: Guide.tsx(퍼블 가이드 문서)
@@ -155,21 +156,27 @@ function Guide() {
             bodyType="cardList"
           >
             <LedgerCard
-              onClick={() => {alert("AA")}}
+              onClick={(cardIndex: number) => {alert(cardIndex)}}
               title="소라의가계부"
+              isLast={false}
+              cardIndex={0}
             >
               <LedgerCardContent owner="소라빵" createAt="2025-04-19"/>
             </LedgerCard>
             <LedgerCard
-              onClick={() => {alert("AA")}}
+              onClick={(cardIndex: number) => {alert(cardIndex)}}
               title="가족여행장부"
+              isLast={false}
+              cardIndex={1}
             >
               <LedgerCardContent owner="소라빵" createAt="2025-04-19"/>
             </LedgerCard>
             <LedgerCard
-              onClick={() => {alert("AA")}}
+              onClick={(cardIndex: number) => {alert(cardIndex)}}
               title="TOY_회비장부"
               className="orange"
+              isLast={false}
+              cardIndex={2}
             >
               <LedgerCardContent
                 owner="유인우"
@@ -179,17 +186,9 @@ function Guide() {
               />
             </LedgerCard>
             <LedgerCard
-              onClick={() => {alert("AA")}}
-            >
-              TEST
-            </LedgerCard>
-            <LedgerCard
-              onClick={() => {alert("AA")}}
-            >
-              TEST
-            </LedgerCard>
-            <LedgerCard
-              onClick={() => {alert("AA")}}
+              cardIndex={3}
+              title={"TEST"}
+              onAdd={() => {alert("가계부를 추가합니다.")}}
             >
               TEST
             </LedgerCard>
@@ -202,11 +201,22 @@ function Guide() {
         <div style={{display: 'flex', gap: '12px', marginTop: '12px'}}>
           <FormList columns={["TEST"]}>
             <FormRow
-              isLast={true}
+              isLast={false}
+              rowIndex={0}
+              onRemove={(index) => {alert(index);}}
             >
               <Input placeholder="기본 INPUT입니다." />
               <SelectBox options={[{value: '', label:'전체'}, {value: '1', label:'1'}]}/>
               <Checkbox checked={true} onChange={()=> {}} label="체크"/>
+            </FormRow>
+            <FormRow
+              isLast={true}
+              rowIndex={1}
+              onAdd={() => {alert("ROW 추가해야함")}}
+            >
+              <Input placeholder="기본 INPUT입니다." />
+              <SelectBox options={[{value: '', label:'전체'}, {value: '1', label:'1'}]}/>
+              <Checkbox checked={false} onChange={()=> {}} label="체크"/>
             </FormRow>
           </FormList>
         </div>
