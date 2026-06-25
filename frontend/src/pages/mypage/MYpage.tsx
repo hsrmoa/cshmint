@@ -1,16 +1,16 @@
-/* import Button from '@/components/common/button';
+import Button from '@/components/common/button';
 import ButtonWrap from '@/components/common/buttonWrap';
 import FormCard from '@/components/common/formCard/FormCard';
 import Input from '@/components/common/input/Input';
 import InputWrap from '@/components/common/inputWrap/InputWrap';
 import ProfileImgUpload from '@/components/common/prifileImgUpload/ProfileImgUpload';
-import LedgerListLayout from '@/components/layouts/ledgerList/LedgerListLayout.tsx'; */
+import LedgerListLayout from '@/components/layouts/ledgerList/LedgerListLayout.tsx';
 
 /**
  * 로그인 > 마이페이지 수정 layout
  */
 
-/* function MYPAGE() {
+ function MYPAGE() {
   return (
     <LedgerListLayout
         title="내 정보 설정"
@@ -68,7 +68,6 @@ import LedgerListLayout from '@/components/layouts/ledgerList/LedgerListLayout.t
 }
 
 export default MYPAGE;
- */
 
 
 
@@ -77,16 +76,16 @@ export default MYPAGE;
 
 
 
-import LedgerCard from '@/components/common/ledger/ledgerCard/LedgerCard';
+/* import LedgerCard from '@/components/common/ledger/ledgerCard/LedgerCard';
 import LedgerCardContent from '@/components/common/ledger/ledgerCardContent/LedgerCardContent';
 import SelectBox from '@/components/common/selectBox';
-import LedgerListLayout from '@/components/layouts/ledgerList/LedgerListLayout.tsx';
+import LedgerListLayout from '@/components/layouts/ledgerList/LedgerListLayout.tsx'; */
 
 /**
  * 가계부목록 화면
  */
 
-function MYPAGE() {
+/* function MYPAGE() {
     //카드 배열 정의?
   const LedgerCards = [
     {title: '나의 가계부',
@@ -111,8 +110,8 @@ function MYPAGE() {
       searchSort=
         {<SelectBox options={[{value: '', label:'전체'}, {value: '1', label:'1'}]}/>}
     >
-        {/* //정의된 카드 배열을 map으로 반복하여 LedgerCard 컴포넌트 생성 */}
-      {LedgerCards.map((card) => (
+        /* //정의된 카드 배열을 map으로 반복하여 LedgerCard 컴포넌트 생성 */
+/*       {LedgerCards.map((card) => (
         <LedgerCard
           title={card.title}
           className={card.className as 'orange' | 'green'| ""}
@@ -129,4 +128,4 @@ function MYPAGE() {
   );
 }
 
-export default MYPAGE;
+export default MYPAGE;  */

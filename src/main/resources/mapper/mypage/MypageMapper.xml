@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 내정보 수정 Mapper -->
+<mapper namespace="com.cshbk.cshmint.mypage.mapper.MypageMapper">
+
+  <select id="selectMypageUser" parameterType="com.cshbk.cshmint.mypage.vo.in.MypageInVo" resultType="com.cshbk.cshmint.common.vo.out.UserVo">
+    <!--MypageMapper.selectUser-->
+    <!--내정보 수정할 사용자 정보 조회-->
+    SELECT
+      USER_SEQ
+    ,	EMAIL
+    ,	PWD
+    ,	USER_NM
+    ,	PRO_IMG 
+    FROM TB_USER
+    WHERE USER_SEQ = #{userSeq}
+  </select>
+
+</mapper>
