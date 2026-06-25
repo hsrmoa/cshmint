@@ -10,12 +10,12 @@ type LedgerCardProps = {
   onClick?: () => void;
 }
 /**
- * 가계부 > 목록카드
+ * 가계부 > 목록카드 틀정보
  * @param title        카드목록 타이틀정보
- * @param className
- * @param children
- * @param footer
- * @param onClick
+ * @param className    카드 style class 명
+ * @param children     카드 내용
+ * @param footer      카드 footer
+ * @param onClick   카드 클릭 이벤트
  * @constructor
  */
 export default function LedgerCard({

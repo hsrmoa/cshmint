@@ -4,5 +4,11 @@
 export const COMMON_PATHS = {
   LOGIN: '/login',
   JOIN: '/join',
-  MAIN: '/main'
+}
+
+/**
+ * 가계부 경로 상수
+ */
+export const LEDGERS_PATHS = {
+  LEDGER_LIST: '/ledgerList'
 }

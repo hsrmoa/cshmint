@@ -1,4 +1,3 @@
-// import Test from '@/pages/common/login/test';
 import Login from '@/pages/common/login/Login.tsx';
 import Join from '@/pages/common/join/Join.tsx';
 import Guide from '@/pages/guide/Guide.tsx';

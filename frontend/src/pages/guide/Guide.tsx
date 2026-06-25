@@ -11,6 +11,9 @@ import ButtonWrap from "@/components/common/buttonWrap";
 import LedgerListLayout from "@/components/layouts/ledgerList";
 import LedgerCard from "@/components/common/ledger/ledgerCard";
 import LedgerCardContent from "@/components/common/ledger/ledgerCardContent";
+import FormList from "@/components/common/form/formList/FormList";
+import FormRow from "@/components/common/form/formRow/FormRow.tsx";
+import Table from "@/components/common/table/Table.tsx";
 
 /**
  *  @name: Guide.tsx(퍼블 가이드 문서)
@@ -191,6 +194,47 @@ function Guide() {
               TEST
             </LedgerCard>
           </LedgerListLayout>
+        </div>
+      </section>
+
+      <section style={{marginTop: '32px'}}>
+        <h2>FORM LIST</h2>
+        <div style={{display: 'flex', gap: '12px', marginTop: '12px'}}>
+          <FormList columns={["TEST"]}>
+            <FormRow
+              isLast={true}
+            >
+              <Input placeholder="기본 INPUT입니다." />
+              <SelectBox options={[{value: '', label:'전체'}, {value: '1', label:'1'}]}/>
+              <Checkbox checked={true} onChange={()=> {}} label="체크"/>
+            </FormRow>
+          </FormList>
+        </div>
+      </section>
+
+      <section style={{marginTop: '32px'}}>
+        <h2>TABLE</h2>
+        <div style={{display: 'flex', gap: '12px', marginTop: '12px'}}>
+            <Table
+              columns={[
+                {
+                  key:"name",
+                  title: "이름"
+                },
+                {
+                  key:"id",
+                  title: "TEST",
+                  align: "center"
+                }
+              ]}
+              data={[{
+                id: 1,
+                name: "홍길동",
+              },{
+                id: 2,
+                name: "김철수",
+              }]}
+            />
         </div>
       </section>
 

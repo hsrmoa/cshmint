@@ -23,7 +23,7 @@ import type {LoginRequest} from "@/types/user.type.ts";
 function Login() {
   /********************** 변수 & STATE 선언 *******************/
   // 이동관련 HOOK
-  const { goJoin, goMain } = useAppNavigate();
+  const { goJoin, goLedgerList } = useAppNavigate();
 
   // 로그인 성공 처리 ( Store에 로그인 정보 저장)
   const dispatch = useDispatch();
@@ -95,8 +95,8 @@ function Login() {
     if(response.status === 200) {
       // 사용자 정보를 localStorage에 저장
       dispatch(login(response.data));
-      // 메인화면으로 이동
-      goMain()
+      // 메인화면(=가계부목록)으로 이동
+      goLedgerList();
     } else {
       alert(response.message);
     }

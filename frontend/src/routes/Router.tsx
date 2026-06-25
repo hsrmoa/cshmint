@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { cmmRoutes } from './modules';
+import { cmmRoutes, ledgerRoutes } from './modules';
 import ProtectedRoute from "@/routes/ProtectedRoute.tsx";
 
 /**
@@ -8,7 +8,10 @@ import ProtectedRoute from "@/routes/ProtectedRoute.tsx";
  */
 export default function Router() {
   const allRoutes = [
+    // 공통 메뉴
     ...cmmRoutes
+    // 가계부
+  , ...ledgerRoutes
   ]
   return (
     <Routes>

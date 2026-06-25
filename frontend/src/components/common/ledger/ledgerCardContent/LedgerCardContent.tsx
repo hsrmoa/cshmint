@@ -11,7 +11,14 @@ type LedgerCardContentProps = {
   createAt?: string;
   ownerColor?: OwnerColor
 }
-
+/**
+ * 가계부 > 카드목록 > 카드 내용
+ * @param owner   소유자(=카드 제목)
+ * @param members 사용자(=내용 사용자)
+ * @param createAt  생성일자
+ * @param ownerColor  카드 색깔
+ * @constructor
+ */
 export default function LedgerCardContent({
                                             owner,
                                             members = [],

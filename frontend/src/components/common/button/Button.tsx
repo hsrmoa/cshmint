@@ -19,7 +19,8 @@ type ButtonProps = {
  * @param variant   버튼 스타일 타입
  * @param className 버튼 className
  * @param disabled  버튼 비활성여부
- * @param type 버튼 타입
+ * @param type      버튼 타입
+ * @param OnClick   버튼 클릭이벤트
  * @constructor
  */
 function Button({

@@ -1,0 +1,43 @@
+// 공통컴포넌트 > 테이블
+@use "@/styles/abstracts/variables" as *;
+
+.tableWrapper{
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: collapse;
+  background: $color-white;
+  border: 1px solid $color-border;
+  th,
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid $color-border;
+    border-right: 1px solid $color-border;
+  }
+
+  th {
+    background: $color-gray-1;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  tbody tr:hover {
+    background: $color-gray-1;
+  }
+}
+
+.empty {
+  padding: 40px;
+  text-align: center;
+  color: $color-txt;
+}
+
+.header{}
+.row{}
+.cell{}
+.empty{}
+
+
