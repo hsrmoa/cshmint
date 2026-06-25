@@ -5,12 +5,16 @@ import Input from '@/components/common/input/Input';
 import InputWrap from '@/components/common/inputWrap/InputWrap';
 import ProfileImgUpload from '@/components/common/prifileImgUpload/ProfileImgUpload';
 import LedgerListLayout from '@/components/layouts/ledgerList/LedgerListLayout.tsx';
+import { useState } from 'react';
 
 /**
  * 로그인 > 마이페이지 수정 layout
  */
 
  function MYPAGE() {
+
+  const [email, setEmail] = useState<String>("");
+
   return (
     <LedgerListLayout
         title="내 정보 설정"
@@ -30,6 +34,8 @@ import LedgerListLayout from '@/components/layouts/ledgerList/LedgerListLayout.t
               type="text"
               inputId="email"
               placeholder="이메일주소를 입력해주세요."
+              value={email}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
             />
           </InputWrap>
            <InputWrap

@@ -1,4 +1,5 @@
 package com.cshbk.cshmint.mypage.service;
+import com.cshbk.cshmint.common.vo.out.UserVo;
 import com.cshbk.cshmint.mypage.vo.in.MypageInVo;
 
 /**
@@ -16,6 +17,6 @@ public interface MypageService {
    * @param mypageInVo 사용자정보 조회 IN VO
    * @return
    */
-  int selectMypageUser(MypageInVo mypageInVo);
+  UserVo selectMypageUser(MypageInVo mypageInVo);
 
 }

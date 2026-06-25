@@ -3,6 +3,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.cshbk.cshmint.common.vo.out.UserVo;
 import com.cshbk.cshmint.mypage.mapper.MypageMapper;
 import com.cshbk.cshmint.mypage.service.MypageService;
 import com.cshbk.cshmint.mypage.vo.in.MypageInVo;
@@ -33,7 +34,7 @@ public class MypageServiceImpl implements MypageService {
    * @return
    */
   @Override
-  public int selectMypageUser(MypageInVo mypageInVo) {
+  public UserVo selectMypageUser(MypageInVo mypageInVo) {
     return mypageMapper.selectMypageUser(mypageInVo);
   }
 

@@ -9,13 +9,13 @@
     <!--MypageMapper.selectUser-->
     <!--내정보 수정할 사용자 정보 조회-->
     SELECT
-      USER_SEQ
-    ,	EMAIL
-    ,	PWD
-    ,	USER_NM
-    ,	PRO_IMG 
-    FROM TB_USER
-    WHERE USER_SEQ = #{userSeq}
+      user_seq
+    ,	email
+    ,	pwd
+    ,	user_nm
+    ,	pro_img 
+    FROM tb_user
+    WHERE user_seq = #{userSeq}
   </select>
 
 </mapper>

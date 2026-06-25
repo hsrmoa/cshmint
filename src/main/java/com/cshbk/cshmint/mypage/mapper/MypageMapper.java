@@ -1,5 +1,7 @@
 package com.cshbk.cshmint.mypage.mapper;
 import org.apache.ibatis.annotations.Mapper;
+
+import com.cshbk.cshmint.common.vo.out.UserVo;
 import com.cshbk.cshmint.mypage.vo.in.MypageInVo;
 
 
@@ -17,6 +19,10 @@ public interface MypageMapper {
   * 내정보 수정 > 사용자정보 조회
     * @param mypageInVo 사용자정보 조회 IN VO
   */
- int selectMypageUser(MypageInVo mypageInVo);
+ UserVo selectMypageUser(MypageInVo mypageInVo)
+ 
+ 
+ 
+ ;
 
 }
