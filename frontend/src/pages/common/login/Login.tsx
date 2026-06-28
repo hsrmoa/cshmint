@@ -5,7 +5,7 @@ import InputWrap from "@/components/common/inputWrap";
 import Input from "@/components/common/input";
 import ButtonWrap from "@/components/common/buttonWrap";
 import Button from "@/components/common/button";
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { emailValid, pwdValid } from "@/utils/validation.ts";
 import { isEmpty } from "@/utils/cmmnUtil.ts";
 import { Link } from "react-router-dom";
@@ -14,6 +14,7 @@ import { loginApi } from "@/api/common/login.api.ts";
 import { useDispatch } from "react-redux";
 import { login } from '@/features/authSlice';
 import type {LoginRequest} from "@/types/user.type.ts";
+import useAlert from "@/hooks/modals/useAlert.ts";
 
 
 /**
@@ -24,6 +25,9 @@ function Login() {
   /********************** 변수 & STATE 선언 *******************/
   // 이동관련 HOOK
   const { goJoin, goLedgerList } = useAppNavigate();
+
+  // Alert Hook
+  const {  onOpenAlert } = useAlert();
 
   // 로그인 성공 처리 ( Store에 로그인 정보 저장)
   const dispatch = useDispatch();
@@ -66,7 +70,6 @@ function Login() {
    */
   const onInputChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
     onErrorClear();
-
     // LoginInfo 정보에 넣기
     onSetLoginInfo(e.target.id, e.target.value);
   }
@@ -75,7 +78,7 @@ function Login() {
    * @param key  loginINfo
    * @param value
    */
-  const onSetLoginInfo = (key: keyof LoginRequest, value:string) => {
+  const onSetLoginInfo = (key: string, value:string) => {
     setLoginInfo((prev) => ({
       ...prev,
       [key]: value,
@@ -98,7 +101,7 @@ function Login() {
       // 메인화면(=가계부목록)으로 이동
       goLedgerList();
     } else {
-      alert(response.message);
+      onOpenAlert({message: response.message, type:"warning"});
     }
   }
 
