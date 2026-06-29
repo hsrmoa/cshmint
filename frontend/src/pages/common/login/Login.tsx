@@ -13,7 +13,7 @@ import { useAppNavigate } from "@/hooks/navigate/useAppNavigate.ts";
 import { loginApi } from "@/api/common/login.api.ts";
 import { useDispatch } from "react-redux";
 import { login } from '@/features/authSlice';
-import type {LoginRequest} from "@/types/user.type.ts";
+import type { LoginRequest } from "@/types/user.type.ts";
 import useAlert from "@/hooks/modals/useAlert.ts";
 
 
@@ -101,7 +101,7 @@ function Login() {
       // 메인화면(=가계부목록)으로 이동
       goLedgerList();
     } else {
-      onOpenAlert({message: response.message, type:"warning"});
+      onOpenAlert({message: response.message, type:"error"});
     }
   }
 

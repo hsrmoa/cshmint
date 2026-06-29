@@ -30,6 +30,13 @@ export default function AlertModal({
 }: AlertModalProps) {
   if(!isOpen) return null;
 
+
+  const alertBtnClassName = [
+    styles.alertButton,
+    styles[type]
+  ].filter(Boolean)
+    .join(' ');
+
   return (
     <div className={styles.alert}>
       <div className={styles.dim} />
@@ -43,7 +50,7 @@ export default function AlertModal({
         <div className={styles.buttonWrap}>
           <button
             type="button"
-            className={styles.confirmButton}
+            className={alertBtnClassName}
             onClick={onConfirm}
           >
             {confirmText}

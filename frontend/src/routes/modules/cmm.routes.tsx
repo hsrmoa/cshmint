@@ -3,7 +3,7 @@ import Join from '@/pages/common/join/Join.tsx';
 import Guide from '@/pages/guide/Guide.tsx';
 import MainPage from '@/pages/common/main/MainPage.tsx';
 import RootRedirect from "@/routes/RootRedirect.tsx";
-import MYPAGE from "@/pages/mypage/MYPAGE.tsx";
+// import MYPAGE from "@/pages/mypage/MYPAGE.tsx";
 
 /**
  * 공통 URL ROUTER
@@ -28,9 +28,10 @@ export const cmmRoutes =[
     path: '/main'
   , element: <MainPage />
   , auth: true
-  }, {
-    path: '/mypage'
-  , element: <MYPAGE />
-  , auth: false
-  }
+  },
+  // {
+  //   path: '/mypage'
+  // , element: <MYPAGE />
+  // , auth: false
+  // }
 ];

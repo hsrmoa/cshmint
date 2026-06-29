@@ -48,17 +48,42 @@
   margin-top: 24px;
 }
 
-.confirmButton {
+.alertButton {
   min-width: 80px;
   height: 36px;
   border: none;
   border-radius: 6px;
-  background: $color-primary;
   color: $color-white;
   font-size: 14px;
   cursor: pointer;
-
+}
+/* 알림 */
+.info {
+  background: $color-primary;
   &:hover {
     background: $color-hover;
+  }
+}
+
+/* 경고 */
+.warning {
+  background: $color-orange;
+  &:hover {
+    background: color-lighten($color-orange, 10%);
+  }
+}
+
+/* 에러 */
+.error {
+  background: $color-error;
+  &:hover {
+    background: color-lighten($color-error, 10%);
+  }
+}
+/* 성공 */
+.success {
+  background: $color-success;
+  &:hover {
+    background: color-lighten($color-success, 10%);
   }
 }
