@@ -24,3 +24,5 @@ export type JoinRequest = {
  * 회원가입 사용자 Type
  */
 export type JoinUserRequest = LoginRequest & JoinRequest;
+// 회원가입 등록 정보
+export type JoinRegInfo = LoginRequest & Omit<JoinRequest, "passwordChk">;

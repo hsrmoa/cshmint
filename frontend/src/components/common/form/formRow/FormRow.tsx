@@ -53,7 +53,7 @@ export default function FormRow({
         classNm={styles.actionButton}
         onClick={onBtnFormRowClick}
         color="#2B9D7E"
-        size="25px"
+        size={25}
       />
     </div>
   );

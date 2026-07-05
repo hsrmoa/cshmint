@@ -14,7 +14,6 @@ import LedgerCardContent from "@/components/common/ledger/ledgerCardContent";
 import FormList from "@/components/common/form/formList/FormList";
 import FormRow from "@/components/common/form/formRow/FormRow.tsx";
 import Table from "@/components/common/table/Table.tsx";
-import IconButton from "@/components/common/icon/IconButton.tsx";
 
 /**
  *  @name: Guide.tsx(퍼블 가이드 문서)

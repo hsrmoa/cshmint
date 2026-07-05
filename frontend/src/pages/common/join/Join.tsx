@@ -7,11 +7,11 @@ import ButtonWrap from "@/components/common/buttonWrap";
 import Button from "@/components/common/button";
 import ProfileImgUpload from "@/components/common/prifileImgUpload";
 import { useAppNavigate } from "@/hooks/navigate/useAppNavigate.ts";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { emailValid, pwdChkValid, pwdValid} from "@/utils/validation.ts";
 import {isEmpty} from "@/utils/cmmnUtil.ts";
 import { joinApi } from "@/api/common/login.api";
-import type { JoinUserRequest} from "@/types/user.type.ts";
+import type {JoinRegInfo, JoinUserRequest} from "@/types/user.type.ts";
 
 /**
  * 회원가입 페이지
@@ -65,11 +65,11 @@ function Join() {
       await onJoinAction(joinInfoParams);
     }
   }
-  /**
+  /**Í$›
    * 회원가입 > 회원가입 실행
    * @param params
    */
-  const onJoinAction = async (params: JoinUserRequest) => {
+  const onJoinAction = async (params: JoinRegInfo) => {
     const response = await joinApi(params);
     // 응답값의 상태값과 회원가입 등록여부가 존재 == 회원가입 성공
     if(response?.status === 200 && response?.data > 0) {
@@ -82,7 +82,7 @@ function Join() {
           ...prev,
           email: response?.message
         }));
-        emailRef.current.focus();
+        emailRef?.current?.focus();
       } else {
         alert(response?.message);
       }
@@ -96,8 +96,9 @@ function Join() {
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // 에러메세지 초기화
     onErrorClear();
+    const key = e.target?.id as keyof JoinUserRequest;
     // 입력값 => 등록회원 정보에 데이터 설정
-    onSetJoinInfo(e.target?.id, e.target.value);
+    onSetJoinInfo(key, e.target.value);
   }
   /**
    * 회원가입 정보에 데이터 설정

@@ -24,7 +24,7 @@ export default function Header() {
   const dispatch = useDispatch();
 
   // 메뉴이동으로 위한 메뉴이동 Hook 가져오기
-  const { goLogin } = useAppNavigate();
+  const { goLogin , goMain } = useAppNavigate();
   // 로그아웃 버튼
   const onLogout = () => {
     // localStorage에 저장된 로그인정보 삭제 = 로그아웃(refreshToken 정보가 없을때)
@@ -32,10 +32,15 @@ export default function Header() {
     // 로그인 화면으로 이동
     goLogin();
   }
+  // 로고 클릭시 Main화면으로 이동
+  const onMain = () => {
+    goMain();
+  }
+
   return (
     <header className={styles.header}>
       <div className={styles.logoArea}>
-        <img src={logo} alt="MINT" className={logoClass}/>
+        <img src={logo} alt="MINT" className={logoClass} onClick={onMain}/>
       </div>
       <div className={styles.userInfo}>
         <span>{userInfo?.userNm}</span>

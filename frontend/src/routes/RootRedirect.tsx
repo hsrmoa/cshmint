@@ -1,7 +1,8 @@
 import { Navigate } from 'react-router-dom';
 import {useSelector} from "react-redux";
-import type {RootState} from "@/app/store.ts";
-
+// import type {RootState} from "@/app/store.ts";
+import { COMMON_PATHS, LEDGERS_PATHS } from "@/routes/paths";
+import { getIsLoginYn } from "@/features/authSlice";
 /**
  * Router > RootRedirect
  * @constructor
@@ -9,11 +10,11 @@ import type {RootState} from "@/app/store.ts";
  */
 export default function RootRedirect() {
   // 로그인 여부
-  const isLogin = useSelector((state: RootState) => state.auth.isLogin);
+  const isLogin = useSelector(getIsLoginYn);
 
   return (
     <Navigate
-      to={isLogin ? "/main" : "/login"}
+      to={isLogin ? LEDGERS_PATHS.LEDGER_LIST : COMMON_PATHS.LOGIN}
       replace
     />
   )

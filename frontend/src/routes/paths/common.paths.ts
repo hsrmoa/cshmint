@@ -10,5 +10,6 @@ export const COMMON_PATHS = {
  * 가계부 경로 상수
  */
 export const LEDGERS_PATHS = {
-  LEDGER_LIST: '/ledgerList'
+  LEDGER_LIST: '/ledgerList',
+  LEDGER_CREATE: '/ledgerCreate',
 }

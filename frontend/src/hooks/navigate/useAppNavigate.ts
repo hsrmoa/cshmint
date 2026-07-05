@@ -8,11 +8,14 @@ export const useAppNavigate = () => {
   const navigate = useNavigate()
 
   return {
+    goMain: () => navigate("/"),
     // 로그인 이동
     goLogin: () => navigate(COMMON_PATHS.LOGIN),
     // 회원가입 이동
     goJoin: () => navigate(COMMON_PATHS.JOIN),
     // 가계부 목록 이동
     goLedgerList: () => navigate(LEDGERS_PATHS.LEDGER_LIST),
+    // 가계부 등록 이동
+    goLedgerCreate: () => navigate(LEDGERS_PATHS.LEDGER_CREATE),
   }
 };

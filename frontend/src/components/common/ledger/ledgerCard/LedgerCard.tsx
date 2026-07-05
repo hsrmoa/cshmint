@@ -66,7 +66,7 @@ export default function LedgerCard({
       {isLast && (
         <IconButton
           icon="plus"
-          size="50px"
+          size={50}
           color="#3EB489"
           classNm={styles.newCard}
         />

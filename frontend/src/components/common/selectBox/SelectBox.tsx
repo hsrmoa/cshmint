@@ -1,15 +1,8 @@
 import styles from '@/components/common/selectBox/SelectBox.module.scss';
 import {useMemo, useState} from "react";
 import Icon from "@/components/common/icon/Icon.tsx";
+import type {SelectBoxOptionProps} from "@/components/common/selectBox/selectBox.type.ts";
 
-
-/*************************
- * 🔘 SELECT 박스 - 옵션 파라미터
- **************************/
-type SelectBoxOptionProps = {
-  label: string;
-  value: string;
-}
 
 /*************************
  * 🔘 SELECT 박스 - 파라미터

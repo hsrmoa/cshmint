@@ -1,7 +1,7 @@
 import React from "react";
 import {useSelector} from "react-redux";
-import type { RootState } from "@/app/store.ts";
 import { Navigate } from "react-router-dom";
+import {getIsLoginYn} from "@/features/authSlice.ts";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -14,7 +14,7 @@ interface ProtectedRouteProps {
  */
 export default function ProtectedRoute( { children } : ProtectedRouteProps) {
   // 로그인 여부 가져오기
-  const isLogin = useSelector((state: RootState) => state.auth.isLogin);
+  const isLogin = useSelector(getIsLoginYn);
 
   // 로그인이 안되어있으면 로그인화면으로 이동
   if(!isLogin) {

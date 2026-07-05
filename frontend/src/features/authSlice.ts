@@ -36,6 +36,11 @@ const initialState: AuthState = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
+  selectors: {
+     getIsLoginYn:() =>{
+       return !isEmpty(localStorage.getItem("accessToken"));
+     }
+  },
   reducers: {
     login: (state, action) => {
       state.accessToken = action.payload.accessToken;
@@ -60,4 +65,5 @@ const authSlice = createSlice({
 });
 
 export const { login, logout} = authSlice.actions;
+export const { getIsLoginYn } = authSlice.selectors;
 export default authSlice.reducer;
