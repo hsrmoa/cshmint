@@ -43,9 +43,8 @@ function InputWrap({
   const wrapperClass = [
     inputWrapStyles.wrapper,
     isFullWidth ? inputWrapStyles.fullWidth : '',
-    inputWrapStyles[className]
+    inputWrapStyles[className] ? inputWrapStyles[className]: className,
   ].join(' ');
-
   /*******************************
    * 👩‍💻️ INPUT Wrapper  컴포넌트의 HTML
    *******************************/

@@ -1,5 +1,5 @@
 import LedgerList from "@/pages/ledger/ledgerList/LedgerList";
-import LedgerCreate from "@/pages/ledger/ledgerCreate/LedgerCreate";
+import {LedgerCreate} from "@/pages/ledger/ledgerCreate/LedgerCreate";
 //import MYPAGE from "@/pages/mypage/MYPAGE.tsx";
 
 /**

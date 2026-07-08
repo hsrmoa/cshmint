@@ -1,5 +1,5 @@
 import api from '../axios';
-import type {LedgerListRequest} from "@/types/ledgerList.type.ts";
+import type {LedgerListRequest} from "@/types/ledger.type.ts";
 
 
 /**

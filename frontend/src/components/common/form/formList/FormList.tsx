@@ -35,7 +35,7 @@ export default function FormList({
           </div>
         )}
 
-        <div className={styles.body}>
+        <div className={styles.formBody}>
           {children}
         </div>
       </div>

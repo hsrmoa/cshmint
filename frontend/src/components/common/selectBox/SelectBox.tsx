@@ -14,6 +14,7 @@ type SelectBoxProps = {
   disabled?: boolean;
   isError?: boolean;
   onChange?: (value: string) => void;
+  selectId?: string;
 }
 
 /**
@@ -26,7 +27,8 @@ export default function SelectBox({
                                     options = [],
                                     placeholder = '값을 선택해주세요',
                                     disabled = false,
-                                    onChange
+                                    onChange,
+                                    selectId
                                   }: SelectBoxProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -58,6 +60,7 @@ export default function SelectBox({
   return (
     <div className={styles.select}>
       <button
+        id={selectId}
         type="button"
         className={triggerClassName}
         disabled={disabled}

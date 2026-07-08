@@ -3,7 +3,7 @@ import LedgerListLayout from "@/components/layouts/ledgerList";
 import type {SelectBoxOptionProps} from "@/components/common/selectBox/selectBox.type.ts";
 import SelectBox from "@/components/common/selectBox";
 import {useEffect, useState} from "react";
-import type {LedgerList, LedgerListRequest} from "@/types/ledgerList.type.ts";
+import type {LedgerList, LedgerListRequest} from "@/types/ledger.type.ts";
 import {useSelector} from "react-redux";
 import type {RootState} from "@/app/store.ts";
 import {getLedgerListApi} from "@/api/ledger/ledgerList.api.ts";

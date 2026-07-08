@@ -23,3 +23,31 @@ export const isEmpty = (str: string | null) => {
 export const isPwdFormat = (pwd: string) => {
   return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/.test(pwd);
 }
+
+/**
+ * 현재일자 정보 가져오기
+ * @param format YYYYMMDD  or YYYY-MM-DD
+ */
+export const getTodayYmd = (format:string) => {
+  const today = new Date();
+  const year:string= today.getFullYear().toString();
+  let month:number = today.getMonth() + 1;
+  let day:number = today.getDate();
+
+  // 월
+  let mm = "";
+  if(month < 10) {
+    mm = "0" + month;
+  }
+  // 일자
+  let dd = "";
+  if(day < 10) {
+    dd = "0" + day;
+  }
+  if(format == "YYYY-MM-DD") {
+    return `${year}-${mm}-${dd}`;
+  } else {
+    return `${year}${mm}${dd}`;
+  }
+
+}
