@@ -1,10 +1,10 @@
-package com.cshbk.cshmint.ledger.ledgerList.service.impl;
+package com.cshbk.cshmint.ledger.service.impl;
 
-import com.cshbk.cshmint.ledger.ledgerList.mapper.LedgerListMapper;
-import com.cshbk.cshmint.ledger.ledgerList.service.LedgerListService;
-import com.cshbk.cshmint.ledger.ledgerList.vo.in.LedgerListInVo;
-import com.cshbk.cshmint.ledger.ledgerList.vo.out.LedgerListOutVo;
-import com.cshbk.cshmint.ledger.ledgerList.vo.out.LedgerListRsltOutVo;
+import com.cshbk.cshmint.ledger.mapper.LedgerMapper;
+import com.cshbk.cshmint.ledger.service.LedgerService;
+import com.cshbk.cshmint.ledger.vo.in.LedgerListInVo;
+import com.cshbk.cshmint.ledger.vo.out.LedgerListOutVo;
+import com.cshbk.cshmint.ledger.vo.out.LedgerListRsltOutVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,10 +20,10 @@ import java.util.List;
  */
 @Slf4j
 @Service
-public class LedgerListServiceImpl implements LedgerListService {
+public class LedgerServiceImpl implements LedgerService {
 
   @Autowired
-  private LedgerListMapper ledgerListMapper;
+  private LedgerMapper ledgerListMapper;
 
   /**
    * 가계부 > 가계부목록 정보 조회

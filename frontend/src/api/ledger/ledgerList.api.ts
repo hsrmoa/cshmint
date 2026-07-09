@@ -7,6 +7,6 @@ import type {LedgerListRequest} from "@/types/ledger.type.ts";
  * @param data
  */
 export const getLedgerListApi = async  (data:LedgerListRequest) => {
-  const response = await api.post('/api/ledgerList/list', data);
+  const response = await api.post('/api/ledger/list', data);
   return response.data;
 }

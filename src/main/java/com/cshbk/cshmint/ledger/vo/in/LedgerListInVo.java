@@ -1,4 +1,4 @@
-package com.cshbk.cshmint.ledger.ledgerList.vo.in;
+package com.cshbk.cshmint.ledger.vo.in;
 
 import com.cshbk.cshmint.common.vo.in.CommonInVo;
 import io.swagger.v3.oas.annotations.media.Schema;

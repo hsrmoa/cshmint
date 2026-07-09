@@ -1,7 +1,7 @@
-package com.cshbk.cshmint.ledger.ledgerList.mapper;
+package com.cshbk.cshmint.ledger.mapper;
 
-import com.cshbk.cshmint.ledger.ledgerList.vo.in.LedgerListInVo;
-import com.cshbk.cshmint.ledger.ledgerList.vo.out.LedgerListOutVo;
+import com.cshbk.cshmint.ledger.vo.in.LedgerListInVo;
+import com.cshbk.cshmint.ledger.vo.out.LedgerListOutVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  * ==========================================
  */
 @Mapper
-public interface LedgerListMapper {
+public interface LedgerMapper {
 
   /**
    * 가계부 목록 > 가계부 정보 조회

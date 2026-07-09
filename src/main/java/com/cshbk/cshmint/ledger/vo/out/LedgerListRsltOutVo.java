@@ -1,4 +1,4 @@
-package com.cshbk.cshmint.ledger.ledgerList.vo.out;
+package com.cshbk.cshmint.ledger.vo.out;
 
 import lombok.Builder;
 import lombok.Getter;

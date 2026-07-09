@@ -1,7 +1,7 @@
-package com.cshbk.cshmint.ledger.ledgerList.service;
+package com.cshbk.cshmint.ledger.service;
 
-import com.cshbk.cshmint.ledger.ledgerList.vo.in.LedgerListInVo;
-import com.cshbk.cshmint.ledger.ledgerList.vo.out.LedgerListRsltOutVo;
+import com.cshbk.cshmint.ledger.vo.in.LedgerListInVo;
+import com.cshbk.cshmint.ledger.vo.out.LedgerListRsltOutVo;
 
 /**
  * ==========================================
@@ -10,7 +10,7 @@ import com.cshbk.cshmint.ledger.ledgerList.vo.out.LedgerListRsltOutVo;
  * Description :
  * ==========================================
  */
-public interface LedgerListService {
+public interface LedgerService {
 
   /**
    * 가계부목록 정보 조회

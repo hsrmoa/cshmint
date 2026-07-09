@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 로그인 Mapper -->
-<mapper namespace="com.cshbk.cshmint.ledger.ledgerList.mapper.LedgerListMapper">
+<mapper namespace="com.cshbk.cshmint.ledger.mapper.LedgerMapper">
 
-  <select id="selectLedgerList" parameterType="com.cshbk.cshmint.ledger.ledgerList.vo.in.LedgerListInVo" resultType="com.cshbk.cshmint.ledger.ledgerList.vo.out.LedgerListOutVo">
+  <select id="selectLedgerList" parameterType="com.cshbk.cshmint.ledger.vo.in.LedgerListInVo" resultType="com.cshbk.cshmint.ledger.vo.out.LedgerListOutVo">
     <!--LedgerListMapper.selectLedgerList-->
     <!--가계부 목록 조회-->
     SELECT

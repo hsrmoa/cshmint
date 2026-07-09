@@ -13,7 +13,7 @@ type SelectBoxProps = {
   placeholder?: string;
   disabled?: boolean;
   isError?: boolean;
-  onChange?: (value: string) => void;
+  onChange?: (value: string, selectId?: string) => void;
   selectId?: string;
 }
 
@@ -53,8 +53,8 @@ export default function SelectBox({
   /*************************
    * 🔘 SELECT 박스 OnChagne 이벤트
    **************************/
-  const handleSelect = (nextValue: string) => {
-    onChange?.(nextValue);
+  const handleSelect = (nextValue: string, selectId?: string) => {
+    onChange?.(nextValue, selectId);
     setIsOpen(false);
   }
   return (
@@ -89,7 +89,7 @@ export default function SelectBox({
                     isSelected ? styles.selected : '',
                   ].filter(Boolean)
                     .join(' ')}
-                  onClick={() => handleSelect(option.value)}
+                  onClick={() => handleSelect(option.value, selectId)}
                 >
                   {option.label}
                 </button>

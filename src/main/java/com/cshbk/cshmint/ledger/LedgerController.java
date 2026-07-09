@@ -1,8 +1,8 @@
-package com.cshbk.cshmint.ledger.ledgerList;
+package com.cshbk.cshmint.ledger;
 
 import com.cshbk.cshmint.common.vo.out.ResultOutVo;
-import com.cshbk.cshmint.ledger.ledgerList.service.LedgerListService;
-import com.cshbk.cshmint.ledger.ledgerList.vo.in.LedgerListInVo;
+import com.cshbk.cshmint.ledger.service.LedgerService;
+import com.cshbk.cshmint.ledger.vo.in.LedgerListInVo;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -21,11 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@RequestMapping("/api/ledgerList")
-public class LedgerListController {
+@RequestMapping("/api/ledger")
+public class LedgerController {
 
   @Autowired
-  private LedgerListService ledgerListService;
+  private LedgerService ledgerListService;
 
   @PostMapping("/list")
   @Operation(summary = "가계부목록조회", description = "로그인한 사용자의 가계부목록조회")
