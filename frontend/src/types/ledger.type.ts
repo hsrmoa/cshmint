@@ -51,6 +51,7 @@ export type LedgerList = {
 /**
  * 가계부 > 가계부 목록 결과 정보
  */
-export type LedgerListRslt = {
-   ledgerList: LedgerList[];
+export type LedgerRegInfo = {
+  userLedgerInVoList: UserLedger[]
+  ledgerInVo:Ledger;
 }

@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 import type {LedgerList, LedgerListRequest} from "@/types/ledger.type.ts";
 import {useSelector} from "react-redux";
 import type {RootState} from "@/app/store.ts";
-import {getLedgerListApi} from "@/api/ledger/ledgerList.api.ts";
+import {getLedgerListApi} from "@/api/ledger/ledger.api.ts";
 import LedgerCard from "@/components/common/ledger/ledgerCard";
 import {useAppNavigate} from "@/hooks/navigate/useAppNavigate.ts";
 

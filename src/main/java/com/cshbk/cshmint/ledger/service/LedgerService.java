@@ -1,6 +1,7 @@
 package com.cshbk.cshmint.ledger.service;
 
 import com.cshbk.cshmint.ledger.vo.in.LedgerListInVo;
+import com.cshbk.cshmint.ledger.vo.in.LedgerRegInVo;
 import com.cshbk.cshmint.ledger.vo.out.LedgerListRsltOutVo;
 
 /**
@@ -18,4 +19,12 @@ public interface LedgerService {
    * @return LedgerListRsltOutVo 가계부 결과정보
    */
   public LedgerListRsltOutVo getLedgerList(LedgerListInVo ledgerListInVo);
+
+
+  /**
+   * 가계부 등록
+   * @param ledgerRegInVo 가계부 등록정보
+   * @return  int 등록개수
+   */
+  public int insertLedger(LedgerRegInVo ledgerRegInVo);
 }

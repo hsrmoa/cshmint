@@ -55,7 +55,6 @@ public class LoginServiceImpl implements LoginService {
             .proImg(userVo.getProImg())
             .userNm(userVo.getUserNm())
             .build();
-
     // 로그인 정보 반환
     return LoginOutVo.builder()
             .accessToken(accessToken)

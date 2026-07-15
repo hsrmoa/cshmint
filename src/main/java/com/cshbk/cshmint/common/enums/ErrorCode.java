@@ -17,7 +17,12 @@ public enum ErrorCode {
   DUPLICATE_CHECK(400,"CMMN_ERROR_MSG_001"),
   LOGIN_FAIL(401,"CMMN_ERROR_MSG_002"),
   // 서버오류
-  SERVER_ERROR_500(500, "SERVER_CMM_001")
+  SERVER_ERROR_500(500, "SERVER_CMM_001"),
+
+  // 공통
+  CMM_ERROR_001(500, "CMMN_ERROR_MSG_003"),
+  //가계부
+  LEDGER_ERROR_001(400, "LEDGER_ERROR_MSG_001")
   ;
 
   private final int status;     // 서버상태코드

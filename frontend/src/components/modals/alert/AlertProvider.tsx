@@ -2,6 +2,8 @@ import React from "react";
 import {createContext, useState} from 'react';
 import AlertModal from "@/components/modals/alert/AlertModal.tsx";
 import type { AlertType } from "./alert.type.ts";''
+
+
 /**
  * Alert 호출 시 Option Type 정보
  */
@@ -9,6 +11,7 @@ type AlertOption = {
   type? : AlertType;
   message: string;
   confirmText?: string;
+  onConfirm?: () => void;
 }
 
 /**
@@ -42,7 +45,8 @@ export function AlertProvider({children}: AlertProviderProps) {
   const [option, setOption] = useState<AlertOption>({
     type: "info",
     message: "",
-    confirmText: "확인"
+    confirmText: "확인",
+    onConfirm: () => {}
   });
 
   /**
@@ -53,7 +57,8 @@ export function AlertProvider({children}: AlertProviderProps) {
     setOption({
       type: option.type ?? "info",
       message: option.message,
-      confirmText: option.confirmText ?? "확인"
+      confirmText: option.confirmText ?? "확인",
+      onConfirm: option.onConfirm
     });
     setIsOpen(true);
   };
@@ -61,6 +66,7 @@ export function AlertProvider({children}: AlertProviderProps) {
    *  화면 닫기
    */
   const onCloseAlert = () => {
+    option.onConfirm?.();
     setIsOpen(false);
   }
 

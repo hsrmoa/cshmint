@@ -1,6 +1,10 @@
 package com.cshbk.cshmint.common.filter;
 
+import com.cshbk.cshmint.cmmn.login.mapper.LoginMapper;
+import com.cshbk.cshmint.cmmn.login.vo.in.LoginInVo;
 import com.cshbk.cshmint.common.utils.JwtUtil;
+import com.cshbk.cshmint.common.vo.out.LoginUser;
+import com.cshbk.cshmint.common.vo.out.UserVo;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,6 +28,7 @@ import java.util.List;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
   // JWT UTIL정보
   private final JwtUtil jwtUtil;
+  private final LoginMapper loginMapper;
 
   @Override
   protected void doFilterInternal(
@@ -40,11 +45,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       // TOKEN Validation 체크
       if (jwtUtil.validateToken(token)) {
         String email = jwtUtil.getEmail(token);
-
+        LoginInVo inVo = new LoginInVo();
+        inVo.setEmail(email);
+        UserVo userVo = loginMapper.selectUser(inVo);
+        LoginUser loginUser = new LoginUser(
+                userVo.getUserSeq(),
+                userVo.getEmail(),
+                userVo.getUserNm(),
+                userVo.getPwd(),
+                List.of());
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                email
+                loginUser
                 , null
-                , List.of()
+                , loginUser.getAuthorities()
         );
         // 인증정보 설정
         SecurityContextHolder.getContext().setAuthentication(authentication);

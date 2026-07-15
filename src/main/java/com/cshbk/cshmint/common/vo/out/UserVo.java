@@ -14,9 +14,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class UserVo {
+public class UserVo{
 
- private int userSeq;
+ private Long userSeq;
  private String email;
  private String pwd;
  private String userNm;

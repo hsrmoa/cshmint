@@ -1,5 +1,6 @@
 package com.cshbk.cshmint.config;
 
+import com.cshbk.cshmint.cmmn.login.mapper.LoginMapper;
 import com.cshbk.cshmint.common.filter.JwtAuthenticationFilter;
 import com.cshbk.cshmint.common.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
   private final JwtUtil jwtUtil;
+
+  private final LoginMapper loginMapper;
   /**
    * 암호화 설정 > 비밀번호 암호화
    * @return
@@ -90,7 +93,7 @@ public class SecurityConfig {
                     .anyRequest().authenticated()
             )
             .addFilterBefore(
-                    new JwtAuthenticationFilter(jwtUtil),
+                    new JwtAuthenticationFilter(jwtUtil, loginMapper),
                     UsernamePasswordAuthenticationFilter.class
             )
             .build();
