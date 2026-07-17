@@ -3,6 +3,7 @@ import CalendarIcon from "@/components/common/icon/CalendarIcon.tsx";
 import Crown from "@/components/common/icon/Crown.tsx";
 import MinusIcon from "@/components/common/icon/MinusIcon.tsx";
 import PlusIcon from "@/components/common/icon/PlusIcon.tsx";
+import SettingIcon from "@/components/common/icon/SettingIcon.tsx"
 
 /**
  * 공통 ICONS를 지정한 정보
@@ -13,4 +14,5 @@ export const Icons = {
   crown: Crown,             // 화살표
   minus: MinusIcon,         // 마이너스버튼
   plus: PlusIcon,           // 플러스버튼
+  settings: SettingIcon   // 설정버튼
 };

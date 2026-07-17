@@ -12,6 +12,7 @@ type LedgerCardProps = {
   onAdd?: () => void;
   isLast?: boolean;
   cardIndex?: number;
+  isShowSetting?: boolean;
 }
 /**
  * 가계부 > 목록카드 틀정보
@@ -26,20 +27,21 @@ type LedgerCardProps = {
  * @constructor
  */
 export default function LedgerCard({
-   title = '',
-   className = 'green',
-   children,
-   onClick,
-   onAdd,
-   isLast = true,
-   cardIndex= 0
- }: LedgerCardProps) {
+                                     title = '',
+                                     className = 'green',
+                                     children,
+                                     onClick,
+                                     onAdd,
+                                     isLast = true,
+                                     cardIndex = 0,
+                                     isShowSetting = true,
+                                   }: LedgerCardProps) {
   /**
    * 목록성 카드 클릭시
    */
   const onLedgerCardClick = () => {
     // 행의 마지막일 떄
-    if(isLast) {
+    if (isLast) {
       onAdd?.();
     } else {
       onClick?.(cardIndex);
@@ -49,12 +51,22 @@ export default function LedgerCard({
     <div
       className={styles.card}
       onClick={onLedgerCardClick}
-      role={onClick ? 'button' : undefined}
-      tabIndex={onClick ? 0 : undefined}
+      role="button"
+      tabIndex={0}
     >
       {title && !isLast && (
         <div className={`${styles.cardHeader} ${styles[className]}`}>
-          {title}
+          <span className={styles.cardTitle}>
+            {title}
+          </span>
+          {isShowSetting &&
+              <IconButton
+                  icon="settings"
+                  size={20}
+                  color="#fff"
+                  classNm={styles.settingButton}
+              />
+          }
         </div>
       )}
       {/* 마지막 행이 아닐 때 */}

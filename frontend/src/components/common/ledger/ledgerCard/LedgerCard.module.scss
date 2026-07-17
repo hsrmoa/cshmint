@@ -13,13 +13,43 @@
 }
 
 .cardHeader {
+  position: relative;
   height: 56px;
   padding: 0 16px;
   display: flex;
   align-items: center;
   font-size: $font-size-20;
   font-weight: 800;
-  color: #fff;
+  color: $color-white;
+  justify-content: space-between;
+}
+
+.cardTitle {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.settingButton {
+  @include flex-center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: $color-white;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all .2s ease;
+
+  &:hover {
+    background: rgba(255,255,255,.18);
+  }
+
+  &:active {
+    transform: scale(.9);
+  }
 }
 
 .green {

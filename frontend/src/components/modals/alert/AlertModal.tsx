@@ -43,7 +43,7 @@ export default function AlertModal({
       <div className={styles.modal}>
 
         <div className={styles.icon}>
-          <AlertIcon type={type} size={64} />
+          <AlertIcon type={type} size={55} />
         </div>
 
         <div className={styles.message}>{message}</div>

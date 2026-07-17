@@ -1,3 +1,5 @@
+import {LuCircleMinus} from "react-icons/lu";
+
 /**
  * 아이콘 > 마이너스 버튼 아이콘 props
  */
@@ -16,18 +18,8 @@ export default function MinusIcon({
                                     color = "currentColor"
                                   }: MinusIconProps) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 38 38"
-      fill="none">
-      <path
-        d="M12 18.6667H25.3333M35.3333 18.6667C35.3333 27.8714 27.8714 35.3333 18.6667 35.3333C9.46192 35.3333 2 27.8714 2 18.6667C2 9.46192 9.46192 2 18.6667 2C27.8714 2 35.3333 9.46192 35.3333 18.6667Z"
-        stroke={color}
-        strokeWidth="4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <LuCircleMinus
+      size={size}
+      color={color}/>
   );
 }

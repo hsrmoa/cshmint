@@ -91,7 +91,6 @@ export function LedgerCreate() {
         ledgerInVo: ledgerInfo
       }
       const response = await setLedgerApi(ledgerRegParams);
-      alert(JSON.stringify(response));
       if (response.success) {
         onOpenAlert({
           message: "저장에 성공하였습니다.", onConfirm: () => {
