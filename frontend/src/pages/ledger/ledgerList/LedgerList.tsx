@@ -74,6 +74,10 @@ export default function LedgerList() {
   const onAddLedger = () => {
     goLedgerCreate();
   }
+  // 수정화면으로 이동하기
+  const onEditLedgerClick = (index:number) => {
+    alert(index);
+  }
 
   /******* useEffect ******/
   useEffect(() => {
@@ -81,10 +85,10 @@ export default function LedgerList() {
   }, []);
   /**
    * 가계부의 소유자가 로그인사용자인지 여부 반환함수
-   * @param userSeq  가계부 소유자 userSeq
+   * @param masterYn 마스터여부
    */
-  const getIsShowSetting = (userSeq:number) => {
-    return userInfo?.userSeq === userSeq;
+  const getIsShowSetting = (masterYn:string):boolean => {
+    return masterYn === 'Y'
   }
   return (
     <MainLayout>
@@ -101,7 +105,8 @@ export default function LedgerList() {
               isLast={ledgerList.length-1 === idx}
               className={item.masterYn === 'Y' ? 'green' : 'orange'}
               onAdd={onAddLedger}
-              isShowSetting={getIsShowSetting(item.userSeq)}
+              isShowSetting={getIsShowSetting(item.masterYn)}
+              onSettingClick={onEditLedgerClick}
             >
               <LedgerCardContent owner={item.userNm} createAt={item.createDate}/>
             </LedgerCard>

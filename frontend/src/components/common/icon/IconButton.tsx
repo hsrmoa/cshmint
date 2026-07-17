@@ -1,12 +1,12 @@
 import Icon from "@/components/common/icon/Icon.tsx";
 import { Icons } from "./iconCommon.ts";
-import type {MouseEventHandler} from "react";
+import React from "react";
 /**
  * 버튼 > 아이콘
  */
 type IconButtonProps = {
   icon: keyof typeof Icons;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   size?: number;
   color?: string;
   classNm?: string;

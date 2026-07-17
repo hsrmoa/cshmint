@@ -1,5 +1,6 @@
 import styles from './LedgerCard.module.scss';
 import IconButton from "@/components/common/icon/IconButton.tsx";
+import React from "react";
 
 /**
  * 가계부 > 목록카드 파라미터
@@ -13,6 +14,7 @@ type LedgerCardProps = {
   isLast?: boolean;
   cardIndex?: number;
   isShowSetting?: boolean;
+  onSettingClick? :(rowIndex:number) => void;
 }
 /**
  * 가계부 > 목록카드 틀정보
@@ -35,6 +37,7 @@ export default function LedgerCard({
                                      isLast = true,
                                      cardIndex = 0,
                                      isShowSetting = true,
+                                     onSettingClick
                                    }: LedgerCardProps) {
   /**
    * 목록성 카드 클릭시
@@ -46,6 +49,15 @@ export default function LedgerCard({
     } else {
       onClick?.(cardIndex);
     }
+  }
+
+  /**
+   * 설정 버튼 클릭시
+   */
+  const onLedgerCardSetClick = (e:React.MouseEvent<HTMLButtonElement>) => {
+    // 설정 버튼 클릭 이벤트가 카드 클릭으로 전파되지 않도록 막음
+    e.stopPropagation();
+    onSettingClick?.(cardIndex);
   }
   return (
     <div
@@ -65,6 +77,7 @@ export default function LedgerCard({
                   size={20}
                   color="#fff"
                   classNm={styles.settingButton}
+                  onClick={onLedgerCardSetClick}
               />
           }
         </div>
