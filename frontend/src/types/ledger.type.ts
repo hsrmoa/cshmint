@@ -4,6 +4,7 @@
 export type LedgerListRequest = {
   userSeq: number | null;
   orderValue: string;
+  ledgerSeq?: number | null;
 }
 
 /**
@@ -28,8 +29,8 @@ export type UserLedger = {
   masterYn: string;
   inviteAgreeYn: string;
   showOnedayYn: string;
+  userNm?:string;
 }
-
 /**
  * 가계부 > 가계부 목록 결과정보
  */
@@ -47,11 +48,30 @@ export type LedgerList = {
   showOnedayYn: string;
   createDate: string;
 }
-
+/**
+ * 사용자 가계부
+ */
+export type UserSelLedger = {
+  userSeq: number | null;
+  ledgerSeq: number | null;
+  userNm:string;
+  email: string;
+  ledgerAuth: string;
+  authExitDate: string;
+  inviteAgreeYn: string;
+  showOnedayYn: string;
+}
 /**
  * 가계부 > 가계부 목록 결과 정보
  */
 export type LedgerRegInfo = {
   userLedgerInVoList: UserLedger[]
   ledgerInVo:Ledger;
+}
+/**
+ * 가계부 > 가계부 목록 결과 정보
+ */
+export type LedgerSelInfo = {
+  userLedgerInVoList: UserSelLedger[]
+  ledgerInVo:LedgerList;
 }
