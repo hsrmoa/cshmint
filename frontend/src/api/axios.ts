@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { useDispatch } from "react-redux";
 import { logout } from '@/features/authSlice';
-import {useAppNavigate} from "@/hooks/navigate/useAppNavigate.ts";
+import {store} from "@/app/store.ts";
 
 /**
  * API 통신 공통 설젇
@@ -33,13 +32,11 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    const dispath = useDispatch();
-    const { goLogin } = useAppNavigate();
-    if(error.response?.status === 401) {
-      // localstorage에 Token 정보 및 로그인 정보 삭제
-      dispath(logout());
-      // 로그인 화면으로 이동
-      goLogin();
+    if(error.response.data.status === 401) {
+      // 로그아웃진행
+      store.dispatch(logout());
+      // 로그인화면으로
+      window.location.replace("/login");
     }
     return Promise.reject(error);
   }

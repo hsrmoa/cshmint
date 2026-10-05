@@ -6,15 +6,17 @@ import Input from "@/components/common/input";
 import FormRow from "@/components/common/form/formRow/FormRow.tsx";
 import SelectBox from "@/components/common/selectBox";
 import Checkbox from "@/components/common/checkbox";
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import type {Ledger, LedgerRegInfo, UserLedger} from "@/types/ledger.type.ts";
 import {getTodayYmd, isEmpty} from "@/utils/cmmnUtil.ts";
 import Button from "@/components/common/button";
 import {FormSlot} from "@/components/common/form/formList";
 import {emailValid} from "@/utils/validation.ts";
 import useAlert from "@/hooks/modals/useAlert.ts";
-import {setLedgerApi} from "@/api/ledger/ledger.api.ts";
+import {getLedgerDetailApi, setLedgerApi} from "@/api/ledger/ledger.api.ts";
 import {useAppNavigate} from "@/hooks/navigate/useAppNavigate.ts";
+import {useLocation} from "react-router-dom";
+import {useConfirm} from "@/components/modals/confirm/ConfirmProvider.tsx";
 
 // 기본 정보
 const defaultUserLedger: UserLedger = {
@@ -41,13 +43,17 @@ type UserLedgerChgProps = {
  */
 export function LedgerCreate() {
   /*** 변수 *****/
-    // 가계부 정보
+  const location = useLocation();
+  const {ledgerSeq} = location.state || {};
+  const { openConfirm } = useConfirm();
+
+  // 가계부 정보
   const [ledgerInfo, setLedgerInfo] = useState<Ledger>({
-      ledgerSeq: null,
-      ledgerNm: '',
-      ledgerYear: getTodayYmd("YYYY").toString(),
-      delYn: 'N'
-    });
+    ledgerSeq: null,
+    ledgerNm: '',
+    ledgerYear: getTodayYmd("YYYY").toString(),
+    delYn: 'N'
+  });
   const [ledgerErroMsg, setLedgerErrMsg] = useState<{
     ledgerNm: string;
   }>({
@@ -60,7 +66,33 @@ export function LedgerCreate() {
   const [userLedgerList, setUserLedgerList] = useState<UserLedger[]>([defaultUserLedger]);
   const emailRefs = useRef<(HTMLInputElement | null)[]>([]);
   const {onOpenAlert} = useAlert();
-  const { goLedgerList } = useAppNavigate();
+  const {goLedgerList} = useAppNavigate();
+
+  /** USE EFFECT ****/
+  useEffect(() => {
+    if (!isEmpty(ledgerSeq)) {
+      getLedgerDetail(ledgerSeq);
+    }
+  }, []);
+  // 가계부 상세 조회
+  const getLedgerDetail = async (ledgerSeq: number) => {
+    const response = await getLedgerDetailApi({
+      ledgerSeq: ledgerSeq,
+      orderValue: '',
+      userSeq: null
+    });
+    // 정상일때
+    if(response.status === 200) {
+      setLedgerInfo(response?.data.ledger);
+      let userLedgerList = [];
+      if (response?.data?.userLedgerList.length > 0) {
+        userLedgerList = response?.data?.userLedgerList;
+      }
+      userLedgerList.push(defaultUserLedger);
+      setUserLedgerList(userLedgerList);
+    }
+
+  }
   /*****  이벤트  & 함수 ******/
     // 가계부 EDIT change
   const onLedgerEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,17 +118,22 @@ export function LedgerCreate() {
   const onLedgerCreateSave = async () => {
     // 저장 이전 vlaidation 체크
     if (onLedgerValid()) {
-      const ledgerRegParams: LedgerRegInfo = {
-        userLedgerInVoList: userLedgerList.filter((item) => !isEmpty(item.email)),
-        ledgerInVo: ledgerInfo
-      }
-      const response = await setLedgerApi(ledgerRegParams);
-      if (response.success) {
-        onOpenAlert({
-          message: "저장에 성공하였습니다.", onConfirm: () => {
-            goLedgerList();
-          }
-        })
+      const isConfirm =  await openConfirm({message:"가계부를 저장하시겠습니까?" , title:"가계부 저장" , confirmText: "저장"});
+      // 확인버튼 클릭시
+      if(isConfirm) {
+        const ledgerRegParams: LedgerRegInfo = {
+          userLedgerInVoList: userLedgerList.filter((item) => !isEmpty(item.email)),
+          ledgerInVo: ledgerInfo
+        }
+
+        const response = await setLedgerApi(ledgerRegParams);
+        if (response.success) {
+          onOpenAlert({
+            message: "저장에 성공하였습니다.", onConfirm: () => {
+              goLedgerList();
+            }
+          })
+        }
       }
     }
   }
@@ -134,6 +171,7 @@ export function LedgerCreate() {
   const onUserLedgerDelRow = (delIndex: number) => {
     setUserLedgerList(prev => prev.filter((_, i) => i !== delIndex));
   }
+
   return (
     <MainLayout>
       <LedgerListLayout
@@ -197,7 +235,7 @@ export function LedgerCreate() {
                   }))
                 }}
               />
-              <FormSlot visible={item.ledgerAuth !== 'R'} size="md">
+              <FormSlot visible={item.ledgerAuth !== 'U'} size="md">
                 <Checkbox checked={item.showOnedayYn} id={`showOnedayYn-${idx}`} onChange={(checked: boolean) => {
                   onUserLedgerListChg({
                     index: idx,

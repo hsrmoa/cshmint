@@ -16,6 +16,10 @@ export const useAppNavigate = () => {
     // 가계부 목록 이동
     goLedgerList: () => navigate(LEDGERS_PATHS.LEDGER_LIST),
     // 가계부 등록 이동
-    goLedgerCreate: () => navigate(LEDGERS_PATHS.LEDGER_CREATE),
+    goLedgerCreate: (ledgerSeq:number | null) => navigate(LEDGERS_PATHS.LEDGER_CREATE, {
+      state: {
+        ledgerSeq:ledgerSeq
+      }
+    }),
   }
 };

@@ -3,32 +3,39 @@ import LedgerListLayout from "@/components/layouts/ledgerList";
 import type {SelectBoxOptionProps} from "@/components/common/selectBox/selectBox.type.ts";
 import SelectBox from "@/components/common/selectBox";
 import {useEffect, useState} from "react";
-import type {LedgerList, LedgerListRequest} from "@/types/ledger.type.ts";
+import type {LedgerList, LedgerListRequest, LedgerSelInfo} from "@/types/ledger.type.ts";
 import {useSelector} from "react-redux";
 import type {RootState} from "@/app/store.ts";
 import {getLedgerListApi} from "@/api/ledger/ledger.api.ts";
 import LedgerCard from "@/components/common/ledger/ledgerCard";
 import {useAppNavigate} from "@/hooks/navigate/useAppNavigate.ts";
 import LedgerCardContent from "@/components/common/ledger/ledgerCardContent";
+import {useCmmnCodes} from "@/hooks/code/useCmmnCodes.ts";
+import type {CmmnCodes} from "@/common/codes/cmmCode.type.ts";
 
 /**
  * 가계부 > 가계부 목록
  * @constructor
  */
 export default function LedgerList() {
+
+  const {  getCodes } = useCmmnCodes();
+  const codeList:CmmnCodes[] = getCodes("CD001");
   // 검색 Option정보
-  const searchOption: SelectBoxOptionProps[] = [
-    {value: 'ASC', label: '생성일 빠른순'},
-    {value: 'DESC', label: '생성일 느린순'}
-  ];
+  const searchOption: SelectBoxOptionProps[] = codeList.map((item) => ({
+    value: item.flag2, label: item.detailCodeNm
+  }));
+
+  // const searchOption: SelectBoxOptionProps[] = [{label:"test", value: "DESC"}];
+
   // 검색조건
   const [orderValue, setOrderValue] = useState<string>("ASC");
-  const [ledgerList, setLedgerList] = useState<LedgerList[]>([]);
+  const [ledgerList, setLedgerList] = useState<LedgerSelInfo[]>([]);
 
   // localStrage에 있는 UserInfo 정보 가져오기
   const userInfo = useSelector((state: RootState) => state.auth?.userInfo);
 
-  const {goLedgerCreate} = useAppNavigate();
+  const { goLedgerCreate } = useAppNavigate();
   /******* EVENT ******/
     // SELECT박스 chang 이벤트
   const onOrderChange = (value: string) => {
@@ -52,8 +59,9 @@ export default function LedgerList() {
     // 가계부목록 조회
     const response = await getLedgerListApi(params);
     if (response.status === 200) {
-      const ledgerList = response.data.ledgerList;
+      const ledgerList = response.data;
       ledgerList.push({
+        ledgerInVo: {
         ledgerSeq: 0,
         ledgerNm: '',
         ledgerYear: '',
@@ -66,17 +74,17 @@ export default function LedgerList() {
         useYn: 'Y',
         showOnedayYn: 'Y',
         createDate: ''
-      })
+      }, userLedgerInVoList:[]})
       setLedgerList(ledgerList);
     }
   }
   // 등록화면으로 이동하기
   const onAddLedger = () => {
-    goLedgerCreate();
+    goLedgerCreate(null);
   }
   // 수정화면으로 이동하기
   const onEditLedgerClick = (index:number) => {
-    alert(index);
+    goLedgerCreate(ledgerList[index].ledgerInVo.ledgerSeq)
   }
 
   /******* useEffect ******/
@@ -101,14 +109,18 @@ export default function LedgerList() {
           ledgerList.map((item, idx) => (
             <LedgerCard
               cardIndex={idx}
-              title={item.ledgerNm}
+              title={item.ledgerInVo.ledgerNm}
               isLast={ledgerList.length-1 === idx}
-              className={item.masterYn === 'Y' ? 'green' : 'orange'}
+              className={item.ledgerInVo.masterYn === 'Y' ? 'green' : 'orange'}
               onAdd={onAddLedger}
-              isShowSetting={getIsShowSetting(item.masterYn)}
+              isShowSetting={getIsShowSetting(item.ledgerInVo.masterYn)}
               onSettingClick={onEditLedgerClick}
             >
-              <LedgerCardContent owner={item.userNm} createAt={item.createDate}/>
+              <LedgerCardContent
+                owner={item.ledgerInVo.userNm}
+                createAt={item.ledgerInVo.createDate}
+                members={item.userLedgerInVoList.map(item => item.userNm)}
+              />
             </LedgerCard>
           ))
         }

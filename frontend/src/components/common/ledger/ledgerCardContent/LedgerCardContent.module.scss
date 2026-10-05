@@ -1,7 +1,7 @@
 /**
   가계부 > 목록 카드 컴포넌트 SCSS
  */
-@use '@/styles/abstracts/variables' as *;
+@use '@/styles/abstracts' as *;
 
 .content {
   display: flex;
@@ -74,7 +74,7 @@
   height: 18px;
   border-radius: 50%;
   flex-shrink: 0;
-  background: $color-error;
+  background: color-lighten($color-error, 2%);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16);
 }
 

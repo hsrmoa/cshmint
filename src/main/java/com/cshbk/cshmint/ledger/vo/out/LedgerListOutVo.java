@@ -1,6 +1,5 @@
 package com.cshbk.cshmint.ledger.vo.out;
 
-import com.cshbk.cshmint.common.vo.in.CommonInVo;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,9 +16,9 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class LedgerListOutVo extends CommonInVo {
+public class LedgerListOutVo {
 
-    private int ledgerSeq;      //  가계부 Seq
+    private Long ledgerSeq;      //  가계부 Seq
     private String ledgerNm;    // 가계부 목록
     private String ledgerYear;  //  가계부 연도
     private int userSeq;        // 사용자 Seq
@@ -31,4 +30,5 @@ public class LedgerListOutVo extends CommonInVo {
     private String useYn;      // 사용여부
     private String showOnedayYn;    // 하루만 보기여부
     private String createDate;      // 생성일자
+    private String delYn;
 }

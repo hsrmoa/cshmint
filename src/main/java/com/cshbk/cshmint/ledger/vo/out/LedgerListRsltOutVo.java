@@ -3,6 +3,7 @@ package com.cshbk.cshmint.ledger.vo.out;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -16,7 +17,12 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
+@ToString
 public class LedgerListRsltOutVo {
 
-  private List<LedgerListOutVo> ledgerList;
+  // 가계부 정보
+  private LedgerListOutVo ledgerInVo;
+
+  // 사용자정보
+  private List<UserLedgerOutVo> userLedgerInVoList;
 }

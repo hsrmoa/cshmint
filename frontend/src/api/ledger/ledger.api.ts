@@ -12,6 +12,15 @@ export const getLedgerListApi = async  (data:LedgerListRequest) => {
 }
 
 /**
+ * 가계부 > 가계부 상세 조회
+ * @param ledgerSeq
+ */
+export const getLedgerDetailApi = async (data:LedgerListRequest) => {
+  const response = await api.post("/api/ledger/detail", data);
+  return response.data;
+}
+
+/**
  * 가계부 >. 가계부 등록
  * @param data
  */

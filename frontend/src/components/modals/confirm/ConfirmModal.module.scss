@@ -1,0 +1,86 @@
+// 공통 확인 모달
+@use "@/styles/abstracts" as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.modal {
+  width: 100%;
+  max-width: 420px;
+  overflow: hidden;
+  background: $color-white;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+}
+
+.header {
+  padding: 24px 24px 12px;
+}
+
+.title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: $color-txt;
+}
+
+.body {
+  padding: 8px 24px 28px;
+}
+
+.message {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  white-space: pre-line;
+  color: $color-gray-5;
+}
+
+.footer {
+  display: flex;
+  gap: 10px;
+  padding: 16px 24px 24px;
+}
+
+.cancelButton,
+.confirmButton {
+  flex: 1;
+  height: 44px;
+  border: 0;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancelButton {
+  color: $color-white;
+  background: $color-error;
+
+  &:hover {
+    background: color-lighten($color-error, 1%);
+  }
+}
+
+.confirmButton {
+  color: $color-white;
+  background: $color-primary;
+  &:hover {
+    background: $color-primary-light;
+  }
+}
+
+.cancelButton:focus-visible,
+.confirmButton:focus-visible {
+  outline: 3px solid rgba(59, 130, 246, 0.3);
+  outline-offset: 2px;
+}

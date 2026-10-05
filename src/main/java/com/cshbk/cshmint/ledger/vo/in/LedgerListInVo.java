@@ -19,9 +19,12 @@ public class LedgerListInVo extends CommonInVo {
 
   @NotNull(message = "사용자 SEQ를 입력해주세요")
   @Schema(description = "사용자 SEQ", required = true)
-  private Integer userSeq;
+  private Long userSeq;
 
   @Schema(description = "정렬순서")
   private String orderValue;
+
+  @Schema(description = "가계부SEQ")
+  private Long ledgerSeq;
 
 }

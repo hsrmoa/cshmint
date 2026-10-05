@@ -12,7 +12,7 @@ import java.util.List;
  * Description :
  * ==========================================
  */
-public interface CmmCodeService {
+public interface CmmnCodeService {
 
-    List<CmmnCodeOutVo> getCmmnCodeList(CmmnCodeInVo cmmnCodeInVo);
+    List<CmmnCodeOutVo> getCmmnCodeList(CmmnCodeInVo inVo);
 }

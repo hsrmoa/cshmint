@@ -22,7 +22,7 @@ public class UserLedgerInVo extends CommonInVo {
   private Long userSeq;
 
   @Schema(description = "가계부SEQ")
-  private int ledgerSeq;
+  private Long ledgerSeq;
 
   @Schema(description = "가계부권한")
   private String ledgerAuth;

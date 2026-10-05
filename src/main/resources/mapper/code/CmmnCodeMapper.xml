@@ -2,44 +2,27 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- 회원가입 Mapper -->
-<mapper namespace="com.cshbk.cshmint.cmmn.join.mapper.JoinMapper">
 
-  <!-- 회원가입 - 이메일 중복여부 체크-->
-  <select id="selectEmailCheck" parameterType="com.cshbk.cshmint.cmmn.join.vo.in.JoinUserInVo" resultType="java.lang.Integer">
-    <!--JoinMapper.selectEmailCheck-->
-    SELECT COUNT(*) AS CNT
-    FROM TB_USER TU
-    WHERE TU.EMAIL = #{email}
+<!-- 공통코드 Mapper -->
+<mapper namespace="com.cshbk.cshmint.cmmn.code.mapper.CmmnCodeMapper">
+
+  <!-- 공통코드 - 공통코드 목록 조회-->
+  <select id="selectCmmnCodeList" parameterType="com.cshbk.cshmint.cmmn.code.vo.in.CmmnCodeInVo" resultType="com.cshbk.cshmint.cmmn.code.vo.out.CmmnCodeOutVo">
+    <!--CmmnCodeMapper.selectCmmnCodeList-->
+    SELECT
+      C.CODE
+    ,	C.CODE_NM
+    ,	CD.DETAIL_CODE
+    ,	CD.DETAIL_CODE_NM
+    ,	CD.FLAG1
+    ,	CD.FLAG2
+    FROM TB_CODE_DETAIL CD
+    INNER JOIN TB_CODE C
+    ON CD.CODE  = C.CODE
+    WHERE 1 = 1
+    <if test='codeId != null and codeId == ""'>
+      AND C.CODE = #{codeId}
+    </if>
   </select>
 
-  <!-- 회원가입 - 회원등록 -->
-  <insert id="insertUser" parameterType="com.cshbk.cshmint.cmmn.join.vo.in.JoinUserInVo">
-    INSERT INTO TB_USER
-    (
-        USER_SEQ
-    ,   EMAIL
-    ,   PWD
-    ,   USER_NM
-    ,   PRO_IMG
-    ,   CREATE_DATE
-    ,   CREATE_USER_SEQ
-    ,   UPDATE_DATE
-    ,   UPDATE_USER_SEQ
-    ) VALUES (
-        (
-          SELECT (CASE WHEN MAX(USER_SEQ) IS NULL THEN 0 ELSE MAX(USER_SEQ) END) + 1
-          FROM TB_USER
-          WHERE USER_SEQ <![CDATA[<>]]> 99999
-        )
-    ,   #{email}
-    ,   #{password}
-    ,   #{userNm}
-    ,   #{proImg}
-    ,   CURRENT_TIMESTAMP
-    ,   #{createUserSeq}
-    ,   CURRENT_TIMESTAMP
-    ,   #{updateUserSeq}
-    )
-  </insert>
 </mapper>

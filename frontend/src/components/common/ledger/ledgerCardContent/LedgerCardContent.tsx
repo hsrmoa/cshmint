@@ -28,7 +28,7 @@ export default function LedgerCardContent({
                                             owner,
                                             members = [],
                                             createAt = '',
-                                            ownerColor = 'green'
+                                            ownerColor = 'orange'
                                           }: LedgerCardContentProps) {
   return (
     <div className={styles.content}>

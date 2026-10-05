@@ -1,4 +1,4 @@
 import {createContext} from "react";
-import type {CmmnCodes} from "@/types/cmmCode.type.ts";
+import type {CmmnCodeContextValue} from "@/common/codes/cmmCode.type.ts";
 
-export const CmmnCodeContext = createContext<CmmnCodes | undefined>(undefined);
+export const CmmnCodeContext = createContext<CmmnCodeContextValue | undefined>(undefined);

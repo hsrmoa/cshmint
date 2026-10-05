@@ -20,7 +20,7 @@ import lombok.Setter;
 public class LedgerInVo extends CommonInVo {
 
  @Schema(description = "가계부SEQ")
- private int ledgerSeq;
+ private Long ledgerSeq;
 
  @Schema(description = "가계부연도")
  private String ledgerYear;

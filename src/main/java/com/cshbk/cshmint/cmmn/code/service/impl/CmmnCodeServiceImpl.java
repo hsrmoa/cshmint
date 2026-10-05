@@ -1,8 +1,10 @@
 package com.cshbk.cshmint.cmmn.code.service.impl;
 
-import com.cshbk.cshmint.cmmn.code.service.CmmCodeService;
+import com.cshbk.cshmint.cmmn.code.mapper.CmmnCodeMapper;
+import com.cshbk.cshmint.cmmn.code.service.CmmnCodeService;
 import com.cshbk.cshmint.cmmn.code.vo.in.CmmnCodeInVo;
 import com.cshbk.cshmint.cmmn.code.vo.out.CmmnCodeOutVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +17,10 @@ import java.util.List;
  * ==========================================
  */
 @Service
-public class CmmCodeServiceImpl implements CmmCodeService {
+public class CmmnCodeServiceImpl implements CmmnCodeService {
 
+ @Autowired
+ private CmmnCodeMapper cmmnCodeMapper;
 
  /**
   * 공통코드 > 공통코드 목록 조회
@@ -25,6 +29,6 @@ public class CmmCodeServiceImpl implements CmmCodeService {
   */
  @Override
  public List<CmmnCodeOutVo> getCmmnCodeList(CmmnCodeInVo cmmnCodeInVo) {
-
+  return cmmnCodeMapper.selectCmmnCodeList(cmmnCodeInVo);
  }
 }
