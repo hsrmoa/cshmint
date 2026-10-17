@@ -18,15 +18,15 @@ import type {CmmnCodes} from "@/common/codes/cmmCode.type.ts";
  * @constructor
  */
 export default function LedgerList() {
-
+  // 공통코드 정보
   const {  getCodes } = useCmmnCodes();
   const codeList:CmmnCodes[] = getCodes("CD001");
+
+
   // 검색 Option정보
   const searchOption: SelectBoxOptionProps[] = codeList.map((item) => ({
     value: item.flag2, label: item.detailCodeNm
   }));
-
-  // const searchOption: SelectBoxOptionProps[] = [{label:"test", value: "DESC"}];
 
   // 검색조건
   const [orderValue, setOrderValue] = useState<string>("ASC");
@@ -38,8 +38,9 @@ export default function LedgerList() {
   const { goLedgerCreate } = useAppNavigate();
   /******* EVENT ******/
     // SELECT박스 chang 이벤트
-  const onOrderChange = (value: string) => {
+  const onOrderChange = async (value: string) => {
       setOrderValue(value);
+      await onGetLedgerList();
     }
   // 검색 SELECT 요소
   const SearchElelment = (
@@ -52,6 +53,7 @@ export default function LedgerList() {
 
   // 가계부 목록정보 조회
   const onGetLedgerList = async () => {
+    // alert(orderValue);
     const params: LedgerListRequest = {
       userSeq: userInfo?.userSeq || null,
       orderValue: orderValue
@@ -108,6 +110,7 @@ export default function LedgerList() {
         {ledgerList.length > 0 &&
           ledgerList.map((item, idx) => (
             <LedgerCard
+              key={idx}
               cardIndex={idx}
               title={item.ledgerInVo.ledgerNm}
               isLast={ledgerList.length-1 === idx}

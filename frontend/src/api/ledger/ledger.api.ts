@@ -28,3 +28,12 @@ export const setLedgerApi = async (data: LedgerRegInfo) => {
   const response = await api.post("/api/ledger/insertLedger", data);
   return response.data;
 }
+
+/**
+ * 가계부 > 가계부 삭제
+ * @param data
+ */
+export const delLedgerApi = async (data: LedgerRegInfo) => {
+  const response = await api.post( "/api/ledger/deleteLedger", data);
+  return response.data;
+}

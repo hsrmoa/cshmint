@@ -10,7 +10,6 @@ export async function fetchCmmnCodes(
 ): Promise<CmmnCodes[]> {
   // 공통코드 목록 조회
   const response = await api.post("/api/cmmn/code/codeList", { signal });
-
   if (!response.data.success) {
     throw new Error(
       `공통코드 조회에 실패했습니다. (${response.status})`,

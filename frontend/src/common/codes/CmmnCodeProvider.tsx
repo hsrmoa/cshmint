@@ -2,6 +2,8 @@ import {type ReactNode, useEffect, useMemo, useState} from "react";
 import { CmmnCodeContext } from "./CmmnCodeContext";
 import type {CmmnCodeContextValue, CmmnCodes} from "@/common/codes/cmmCode.type.ts";
 import {fetchCmmnCodes} from "@/common/codes/cmmnCode.api.ts";
+import {useSelector} from "react-redux";
+import {getIsLoginYn} from "@/features/authSlice.ts";
 
 interface CmmnCodeProviderProps {
   children: ReactNode;
@@ -18,8 +20,11 @@ export function CmmnCodeProvider({children}:CmmnCodeProviderProps) {
   const [rows, setRows] = useState<CmmnCodes[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
+  // 로그인 여부 가져오기
+  const isLogin = useSelector(getIsLoginYn);
 
   useEffect(() => {
+    if(!isLogin) return;
     const controller = new AbortController();
 
     async function loadCodes(): Promise<void> {
@@ -44,7 +49,7 @@ export function CmmnCodeProvider({children}:CmmnCodeProviderProps) {
     void loadCodes();
 
     return () => controller.abort();
-  }, []);
+  }, [isLogin]);
 
   // API 응답이 바뀔 때만 그룹별로 묶습니다.
   const codesByGroup = useMemo(() => {

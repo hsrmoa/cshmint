@@ -13,10 +13,11 @@ import Button from "@/components/common/button";
 import {FormSlot} from "@/components/common/form/formList";
 import {emailValid} from "@/utils/validation.ts";
 import useAlert from "@/hooks/modals/useAlert.ts";
-import {getLedgerDetailApi, setLedgerApi} from "@/api/ledger/ledger.api.ts";
+import {delLedgerApi, getLedgerDetailApi, setLedgerApi} from "@/api/ledger/ledger.api.ts";
 import {useAppNavigate} from "@/hooks/navigate/useAppNavigate.ts";
 import {useLocation} from "react-router-dom";
 import {useConfirm} from "@/components/modals/confirm/ConfirmProvider.tsx";
+import ButtonWrap from "@/components/common/buttonWrap";
 
 // 기본 정보
 const defaultUserLedger: UserLedger = {
@@ -44,7 +45,7 @@ type UserLedgerChgProps = {
 export function LedgerCreate() {
   /*** 변수 *****/
   const location = useLocation();
-  const {ledgerSeq} = location.state || {};
+  const { ledgerSeq } = location.state || {};
   const { openConfirm } = useConfirm();
 
   // 가계부 정보
@@ -59,18 +60,21 @@ export function LedgerCreate() {
   }>({
     ledgerNm: ""
   });
+  // 화면 모드
+  const [screenMode , setScreenMode] = useState<string>("C");
   // 장부이름 REF
   const ledgerNmRef = useRef<HTMLInputElement>(null);
 
   // 초대여부
   const [userLedgerList, setUserLedgerList] = useState<UserLedger[]>([defaultUserLedger]);
   const emailRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const {onOpenAlert} = useAlert();
-  const {goLedgerList} = useAppNavigate();
+  const { onOpenAlert } = useAlert();
+  const { goLedgerList } = useAppNavigate();
 
   /** USE EFFECT ****/
   useEffect(() => {
     if (!isEmpty(ledgerSeq)) {
+      setScreenMode("D");
       getLedgerDetail(ledgerSeq);
     }
   }, []);
@@ -171,13 +175,42 @@ export function LedgerCreate() {
   const onUserLedgerDelRow = (delIndex: number) => {
     setUserLedgerList(prev => prev.filter((_, i) => i !== delIndex));
   }
+  /**
+   * 삭제버튼
+   */
+  const onLedgerDelClick = async () => {
+    const isConfirm =  await openConfirm({message:"가계부를 삭제하시겠습니까?" , title:"가계부 삭제" , confirmText: "삭제"});
+    // 삭제버튼 클릭
+    if(isConfirm) {
+      const ledgerRegParams: LedgerRegInfo = {
+        userLedgerInVoList: userLedgerList.filter((item) => !isEmpty(item.email)),
+        ledgerInVo: ledgerInfo
+      }
+
+      const response = await delLedgerApi(ledgerRegParams);
+      if (response.success) {
+        onOpenAlert({
+          message: "삭제에 성공하였습니다.", onConfirm: () => {
+            goLedgerList();
+          }
+        })
+      }
+    }
+  }
 
   return (
     <MainLayout>
       <LedgerListLayout
         title="가계부 만들기"
         bodyType="grid"
-        searchSort={<Button variant="primary" type="button" OnClick={onLedgerCreateSave}>저장</Button>}
+        searchSort={
+        <ButtonWrap>
+          {screenMode === "D" && (
+            <Button variant="danger" type="button" OnClick={onLedgerDelClick}>삭제</Button>
+          )}
+          <Button variant="primary" type="button" OnClick={onLedgerCreateSave}>저장</Button>
+        </ButtonWrap>
+      }
       >
         <FormList>
           <InputWrap
