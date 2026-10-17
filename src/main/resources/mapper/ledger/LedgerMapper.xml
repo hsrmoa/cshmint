@@ -46,6 +46,14 @@
       FROM tb_user_ledger
       WHERE user_seq = #{userSeq}
     )
+    <choose>
+      <when test="orderValue == 'DESC'">
+        ORDER BY tl.create_date DESC
+      </when>
+      <otherwise>
+        ORDER BY tl.create_date ASC
+      </otherwise>
+    </choose>
   </select>
 
   <!--가계부 상세 조회-->

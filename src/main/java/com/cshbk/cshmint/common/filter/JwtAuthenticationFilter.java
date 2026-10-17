@@ -72,6 +72,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     // 이메일로 사용자 정보 조회
     LoginInVo inVo = new LoginInVo();
     inVo.setEmail(email);
+
+//    System.out.println("JWT email = [" + email + "]");
+//    System.out.println("LoginInVo email = [" + inVo.getEmail() + "]");
+
     UserVo userVo = loginMapper.selectUser(inVo);
 
     /*

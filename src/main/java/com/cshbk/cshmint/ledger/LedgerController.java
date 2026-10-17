@@ -87,7 +87,7 @@ public class LedgerController {
    * @param ledgerRegInVo 가계부 삭제정보
    * @return ResultOutVo
    */
-  @DeleteMapping("/deleteLedger")
+  @PostMapping("/deleteLedger")
   @Operation(summary = "가계부삭제", description = "가계부를 삭제")
   public ResultOutVo<?> deleteLedger(@RequestBody @Valid LedgerRegInVo ledgerRegInVo) {
     return ResultOutVo.success(ledgerListService.deleteLedger(ledgerRegInVo));
