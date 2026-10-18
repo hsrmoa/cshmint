@@ -6,7 +6,7 @@ server:
 # SPRING NAME
 spring:
   datasource:
-    url: jdbc:postgresql://aws-1-ap-northeast-2.pooler.supabase.com:6543/postgres?currentSchema=public
+    url: jdbc:postgresql://aws-1-ap-northeast-2.pooler.supabase.com:6543/postgres?currentSchema=public&prepareThreshold=0
     username: postgres.ftoqewhpbrypaeclukso
     password: mintHouse1234@@
     driver-class-name: org.postgresql.Driver
@@ -24,12 +24,12 @@ management:
 #logging
 logging:
   level:
-    org.springframework.jdbc.core: debug
-    org.springframework.jdbc.core.StatementCreatorUtils: trace
-    org.hibernate.SQL: DEBUG
+    org.springframework.jdbc.core: INFO
+    org.springframework.jdbc.core.StatementCreatorUtils: INFO
+    org.hibernate.SQL: INFO
     org.hibernate.orm.jdbc.bind: TRACE
-    com.zaxxer.hikari: debug
-    org.mybatis: debug
+    com.zaxxer.hikari: INFO
+    org.mybatis: INFO
 
 #mybatis
 mybatis:

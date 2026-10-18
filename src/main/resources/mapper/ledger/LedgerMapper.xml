@@ -89,6 +89,7 @@
     AND tul.master_yn ='N'
     ORDER BY tul.user_seq
   </select>
+
   <!-- 이메일 주소로 USER SEQ 정보 조회하기 -->
   <select id="selectUserSeq" parameterType="com.cshbk.cshmint.ledger.vo.in.UserLedgerInVo" resultType="java.lang.Long">
     SELECT tu.user_seq
@@ -124,6 +125,7 @@
     RETURNING ledger_seq
   </select>
 
+  <!-- 가계부 정보 수정 -->
   <update id="updateLedger"  parameterType="com.cshbk.cshmint.ledger.vo.in.LedgerInVo">
     <!--LedgerListMapper.updateLedger-->
     UPDATE
@@ -136,6 +138,7 @@
       AND del_yn      = 'N'
   </update>
 
+  <!-- 가계부 사용자 추가 -->
   <insert id="insertUserLedger" parameterType="com.cshbk.cshmint.ledger.vo.in.UserLedgerInVo">
     <!--LedgerListMapper.insertLedger-->
     INSERT INTO tb_user_ledger
@@ -168,15 +171,21 @@
     );
   </insert>
 
-  <delete id="deleteUserLedger" parameterType="com.cshbk.cshmint.ledger.vo.in.LedgerInVo">
+  <!-- 가계부 사용자 삭제 -->
+  <delete id="deleteUserLedger" parameterType="com.cshbk.cshmint.ledger.vo.in.UserLedgerInVo">
     <!--LedgerListMapper.deleteUserLedger-->
     DELETE FROM tb_user_ledger
     WHERE ledger_seq = #{ledgerSeq}
+    <if test="userSeq != null and userSeq != 0">
+      AND user_seq = #{userSeq}
+    </if>
   </delete>
 
+  <!-- 가계부 정보 삭제 -->
   <update id="deleteLedger"  parameterType="com.cshbk.cshmint.ledger.vo.in.LedgerInVo">
     <!--LedgerListMapper.deleteLedger-->
-    UPDATE tb_ledger
+    UPDATE
+      tb_ledger
     SET
       del_yn          = 'Y'
     , update_date     = CURRENT_TIMESTAMP
@@ -184,4 +193,15 @@
     WHERE ledger_seq  = #{ledgerSeq}
   </update>
 
+  <!-- 가계부 사용자 동의여부 추가 -->
+  <update id="updateLedgerAgree" parameterType="com.cshbk.cshmint.ledger.vo.in.UserLedgerInVo">
+    <!--LedgerListMapper.updateLedgerAgree-->
+    UPDATE tb_user_ledger
+    SET invite_agree_yn = #{inviteAgreeYn}
+    ,  auth_exit_date   = TO_DATE(#{authExitDate},'YYYYMMDD')
+    ,  update_date      = CURRENT_TIMESTAMP
+    ,  update_user_seq  = #{updateUserSeq}
+    WHERE ledger_seq    = #{ledgerSeq}
+      AND user_seq      = #{userSeq}
+  </update>
 </mapper>

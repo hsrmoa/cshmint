@@ -1,6 +1,7 @@
 import styles from './LedgerCard.module.scss';
 import IconButton from "@/components/common/icon/IconButton.tsx";
 import React from "react";
+import Button from "@/components/common/button";
 
 /**
  * 가계부 > 목록카드 파라미터
@@ -15,6 +16,10 @@ type LedgerCardProps = {
   cardIndex?: number;
   isShowSetting?: boolean;
   onSettingClick? :(rowIndex:number) => void;
+  isInvited?: boolean;
+  inviteUserNm?: string | '';
+  onAccept? :() => void;
+  onReject? :() => void;
 }
 /**
  * 가계부 > 목록카드 틀정보
@@ -26,6 +31,11 @@ type LedgerCardProps = {
  * @param onAdd     카드 추가 목록
  * @param isLast    카드의 마지막여부
  * @param cardIndex 여러 카드일 경우의 index 정보
+ * @param isShowSetting 설정버튼 출력여부
+ * @param onSettingClick 설정버튼 클릭 이벤트
+ * @param isInvited 초대여부
+ * @param onAccept 수락버튼 클릭이벤트
+ * @param onReject 거절버튼 클릭이벤트
  * @constructor
  */
 export default function LedgerCard({
@@ -37,7 +47,11 @@ export default function LedgerCard({
                                      isLast = true,
                                      cardIndex = 0,
                                      isShowSetting = true,
-                                     onSettingClick
+                                     onSettingClick,
+                                     isInvited = true,
+                                     inviteUserNm = "소라빵",
+                                     onAccept,
+                                     onReject
                                    }: LedgerCardProps) {
   /**
    * 목록성 카드 클릭시
@@ -95,6 +109,21 @@ export default function LedgerCard({
           color="#3EB489"
           classNm={styles.newCard}
         />
+      )}
+      {/* 초대받은 여부가 존재시*/}
+      {isInvited && !isLast  && (
+        <div className={styles.inviteDimLayer}>
+          <div className={styles.inviteBox}>
+            <div className={styles.inviteMessage}>
+              {inviteUserNm}님에게 초대받은 <br/>가계부가 있습니다. <br/>
+              초대를 허락하시겠습니까?
+            </div>
+          </div>
+          <div className={styles.inviteButtons}>
+            <Button variant="primary" OnClick={onAccept}>수락</Button>
+            <Button variant="secondary" OnClick={onReject}>거절</Button>
+          </div>
+        </div>
       )}
     </div>
   );

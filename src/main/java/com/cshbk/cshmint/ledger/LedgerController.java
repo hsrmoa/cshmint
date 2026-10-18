@@ -4,6 +4,7 @@ import com.cshbk.cshmint.common.vo.out.ResultOutVo;
 import com.cshbk.cshmint.ledger.service.LedgerService;
 import com.cshbk.cshmint.ledger.vo.in.LedgerListInVo;
 import com.cshbk.cshmint.ledger.vo.in.LedgerRegInVo;
+import com.cshbk.cshmint.ledger.vo.in.UserLedgerInVo;
 import com.cshbk.cshmint.ledger.vo.out.LedgerListRsltOutVo;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -92,6 +93,19 @@ public class LedgerController {
   public ResultOutVo<?> deleteLedger(@RequestBody @Valid LedgerRegInVo ledgerRegInVo) {
     return ResultOutVo.success(ledgerListService.deleteLedger(ledgerRegInVo));
   }
+
+  /**
+   * 가계부 초대 동의여부 수정
+   *
+   * @param userLedgerInVo 초대승인할 사용자 정보
+   * @return ResultOutVo
+   */
+  @PostMapping("/updateLedgerAgree")
+  @Operation(summary = "가계부초대동의", description = "가계부를 초대동의")
+  public ResultOutVo<?> updateLedgerAgree(@RequestBody UserLedgerInVo userLedgerInVo) {
+    return ResultOutVo.success(ledgerListService.updateLedgerAgree(userLedgerInVo));
+  }
+
 
 
 

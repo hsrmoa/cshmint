@@ -6,12 +6,14 @@ import {useEffect, useState} from "react";
 import type {LedgerList, LedgerListRequest, LedgerSelInfo} from "@/types/ledger.type.ts";
 import {useSelector} from "react-redux";
 import type {RootState} from "@/app/store.ts";
-import {getLedgerListApi} from "@/api/ledger/ledger.api.ts";
+import {getLedgerListApi, modifyLedgerAgree} from "@/api/ledger/ledger.api.ts";
 import LedgerCard from "@/components/common/ledger/ledgerCard";
 import {useAppNavigate} from "@/hooks/navigate/useAppNavigate.ts";
 import LedgerCardContent from "@/components/common/ledger/ledgerCardContent";
 import {useCmmnCodes} from "@/hooks/code/useCmmnCodes.ts";
 import type {CmmnCodes} from "@/common/codes/cmmCode.type.ts";
+import {useConfirm} from "@/components/modals/confirm/ConfirmProvider.tsx";
+import useAlert from "@/hooks/modals/useAlert.ts";
 
 /**
  * 가계부 > 가계부 목록
@@ -20,8 +22,9 @@ import type {CmmnCodes} from "@/common/codes/cmmCode.type.ts";
 export default function LedgerList() {
   // 공통코드 정보
   const {  getCodes } = useCmmnCodes();
+  const { openConfirm } = useConfirm();
+  const { onOpenAlert } = useAlert();
   const codeList:CmmnCodes[] = getCodes("CD001");
-
 
   // 검색 Option정보
   const searchOption: SelectBoxOptionProps[] = codeList.map((item) => ({
@@ -36,6 +39,7 @@ export default function LedgerList() {
   const userInfo = useSelector((state: RootState) => state.auth?.userInfo);
 
   const { goLedgerCreate } = useAppNavigate();
+
   /******* EVENT ******/
     // SELECT박스 chang 이벤트
   const onOrderChange = async (value: string) => {
@@ -100,6 +104,57 @@ export default function LedgerList() {
   const getIsShowSetting = (masterYn:string):boolean => {
     return masterYn === 'Y'
   }
+  /**
+   * 가계부 동의 버튼 클릭 이벤트
+   * @param ledgerInVo
+   */
+  const onInviteAceept = async (ledgerInVo:LedgerList) => {
+    const params = {...ledgerInVo, inviteAgreeYn: "Y"};
+    // console.log(JSON.stringify(params));
+    const isConfirm= await openConfirm({message: "초대를 수락하시겠습니까?", title: "초대수락", confirmText:"수락"})
+    //   수락시
+    if(isConfirm){
+      await onUpdateInviteAgree(params, () => {
+        onOpenAlert({
+          message: "초대가 수락되었습니다.", onConfirm: () => {
+            onGetLedgerList();
+          }
+        });
+      });
+    }
+  }
+
+  /**
+   * 가계부 거절 버튼 클릭 이벤트
+   * @param ledgerInVo
+   */
+  const onInviteReject = async (ledgerInVo:LedgerList) => {
+    const params = {...ledgerInVo, inviteAgreeYn: "N"};
+    // console.log(JSON.stringify(params));
+    const isConfirm= await openConfirm({message: "초대를 거절하시겠습니까?", title: "초대거절", confirmText:"거절"})
+    //   수락시
+    if(isConfirm){
+      await onUpdateInviteAgree(params, () => {
+        onOpenAlert({
+          message: "초대가 거절되었습니다.", onConfirm: () => {
+            onGetLedgerList();
+          }
+        });
+      });
+    }
+  }
+
+  /**
+   * 가계부 승낙 수락하기
+   * @param params  동의뎌부 파라미터
+   * @param callback
+   */
+  const onUpdateInviteAgree = async (params:any, callback: () => void) => {
+    const response = await modifyLedgerAgree(params);
+    if(response.status === 200) {
+        callback();
+    }
+  }
   return (
     <MainLayout>
       <LedgerListLayout
@@ -118,6 +173,9 @@ export default function LedgerList() {
               onAdd={onAddLedger}
               isShowSetting={getIsShowSetting(item.ledgerInVo.masterYn)}
               onSettingClick={onEditLedgerClick}
+              isInvited={item.ledgerInVo.inviteAgreeYn === "N"}
+              onAccept={() => onInviteAceept(item.ledgerInVo)}
+              onReject={() => onInviteReject(item.ledgerInVo)}
             >
               <LedgerCardContent
                 owner={item.ledgerInVo.userNm}

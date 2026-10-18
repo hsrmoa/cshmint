@@ -72,10 +72,10 @@ public interface LedgerMapper {
 
   /**
    * 가계부 등록 > 가계부 사용자 삭제
-   * @param ledgerInVo 가게부 정보
+   * @param userLedgerInVo 가게부 정보
    * @return
    */
-  int deleteUserLedger(LedgerInVo ledgerInVo);
+  int deleteUserLedger(UserLedgerInVo userLedgerInVo);
 
   /**
    * 가계부 등록 > 가계부  삭제
@@ -83,4 +83,11 @@ public interface LedgerMapper {
    * @return
    */
   int deleteLedger(LedgerInVo ledgerInVo);
+
+  /**
+   * 가계부 등록 > 가계부 동의/ 거절 여부
+   * @param userLedgerInVo 가게부 정보
+   * @return
+   */
+  int updateLedgerAgree(UserLedgerInVo userLedgerInVo);
 }

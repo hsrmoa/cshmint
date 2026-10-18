@@ -11,10 +11,11 @@ import com.cshbk.cshmint.ledger.vo.in.LedgerRegInVo;
 import com.cshbk.cshmint.ledger.vo.in.UserLedgerInVo;
 import com.cshbk.cshmint.ledger.vo.out.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,27 +30,29 @@ import java.util.List;
 @Service
 public class LedgerServiceImpl implements LedgerService {
 
-  @Autowired
-  private LedgerMapper ledgerListMapper;
-  @Autowired
-  private LedgerMapper ledgerMapper;
+  private final LedgerMapper ledgerListMapper;
+  private final LedgerMapper ledgerMapper;
+
+  public LedgerServiceImpl(LedgerMapper ledgerListMapper, LedgerMapper ledgerMapper) {
+    this.ledgerListMapper = ledgerListMapper;
+    this.ledgerMapper = ledgerMapper;
+  }
 
   /**
    * 가계부 > 가계부목록 정보 조회
    *
    * @param ledgerListInVo 가계부 조회 IN VO
-   * @return LedgerListRsltOutVo
    */
   @Override
   public List<LedgerListRsltOutVo> getLedgerList(LedgerListInVo ledgerListInVo) {
-    List<LedgerListRsltOutVo> ledgerListRsltList = new ArrayList<LedgerListRsltOutVo>();
+    List<LedgerListRsltOutVo> ledgerListRsltList = new ArrayList<>();
     // 가계부 목록
     List<LedgerListOutVo> ledgerList = ledgerListMapper.selectLedgerList(ledgerListInVo);
 
     for (LedgerListOutVo ledgerListOutVo : ledgerList) {
 
       // 가계부 사용자 목록 조회
-      List<UserLedgerOutVo> userLedgerList = new ArrayList<UserLedgerOutVo>();
+      List<UserLedgerOutVo> userLedgerList;
       UserLedgerInVo userLedgerInVo = UserLedgerInVo.builder()
               .ledgerSeq(ledgerListOutVo.getLedgerSeq())
               .build();
@@ -87,8 +90,8 @@ public class LedgerServiceImpl implements LedgerService {
    * @param ledgerRegInVo 가계부 등록정보
    * @return int 등록개수
    */
-  @Transactional(rollbackFor = Exception.class)
   @Override
+  @Transactional(rollbackFor = Exception.class)
   public int insertLedger(LedgerRegInVo ledgerRegInVo) {
     log.info("======SessionUtils.getUserSeq() :: {}", SessionUtils.getUserSeq());
     int result = 0;
@@ -99,7 +102,7 @@ public class LedgerServiceImpl implements LedgerService {
     // 1. 가계부 등록
     Long ledgerSeq = ledgerListMapper.insertLedger(ledgerInVo);
     if (ledgerSeq < 1) {
-      throw new CshMintBizException(ErrorCode.CMM_ERROR_001, new Object[]{"가계부"});
+      throw new CshMintBizException(ErrorCode.CMM_ERROR_001, "가계부");
     }
     // 2. 가계부 사용자 등록
     insertUserLedgerList(ledgerRegInVo, ledgerSeq);
@@ -115,7 +118,7 @@ public class LedgerServiceImpl implements LedgerService {
 
     // 2. 가계부 사용자 목록
     List<UserLedgerInVo> userLedgerSaveList = ledgerRegInVo.getUserLedgerInVoList();
-
+    int createUserSeq = Integer.parseInt(SessionUtils.getUserSeq().toString());
     // 2-1 가계부 사용자 목록이 비어있을때 = 소유자 사용자 정보 추가
     UserLedgerInVo userLedgerSaveInVo = UserLedgerInVo.builder()
             .userSeq(SessionUtils.getUserSeq())
@@ -126,29 +129,32 @@ public class LedgerServiceImpl implements LedgerService {
             .showOnedayYn("N")
             .email(SessionUtils.getEmail())
             .build();
-    userLedgerSaveInVo.setCreateUserSeq(Integer.parseInt(SessionUtils.getUserSeq().toString()));
-    userLedgerSaveInVo.setUpdateUserSeq(Integer.parseInt(SessionUtils.getUserSeq().toString()));
+    userLedgerSaveInVo.setCreateUserSeq(createUserSeq);
+    userLedgerSaveInVo.setUpdateUserSeq(createUserSeq);
     userLedgerSaveList.add(userLedgerSaveInVo);
 
     // 3. 가계부사용자 등록
     for (UserLedgerInVo userLedgerInVo : userLedgerSaveList) {
       userLedgerInVo.setLedgerSeq(ledgerSeq);
       userLedgerInVo.setUseYn("Y");
-      // userSeq가 null일때는 초대하는 사용자
+      // userSeq가 null일 때는 초대하는 사용자
       if (userLedgerInVo.getUserSeq() == null) {
         Long userSeq = ledgerListMapper.selectUserSeq(userLedgerInVo);
         if (userSeq == null) {
-          throw new CshMintBizException(ErrorCode.LEDGER_ERROR_001, new Object[]{userLedgerInVo.getEmail()});
+          throw new CshMintBizException(ErrorCode.LEDGER_ERROR_001, userLedgerInVo.getEmail());
         }
         userLedgerInVo.setUserSeq(userSeq);
         userLedgerInVo.setMasterYn("N");
         userLedgerInVo.setInviteAgreeYn("N");
         userLedgerInVo.setAuthExitDate("99991231");  // 하루만보기시는 초대승인일자기준~ 하루!
       }
+      userLedgerInVo.setCreateUserSeq(createUserSeq);
+      userLedgerInVo.setUpdateUserSeq(createUserSeq);
+
       // 가계부 사용자  신규 등록
       int userRegCnt = ledgerListMapper.insertUserLedger(userLedgerInVo);
       if (userRegCnt <= 0) {
-        throw new CshMintBizException(ErrorCode.CMM_ERROR_001, new Object[]{"가계부 사용자"});
+        throw new CshMintBizException(ErrorCode.CMM_ERROR_001, "가계부 사용자");
       }
     }
   }
@@ -158,8 +164,8 @@ public class LedgerServiceImpl implements LedgerService {
    * @param ledgerRegInVo 가계부 수정정보
    * @return  int 수정개수
    */
-  @Transactional(rollbackFor = Exception.class)
   @Override
+  @Transactional(rollbackFor = Exception.class)
   public int updateLeger(LedgerRegInVo ledgerRegInVo){
     int result = 0;
     LedgerInVo ledgerInVo = ledgerRegInVo.getLedgerInVo();
@@ -169,12 +175,15 @@ public class LedgerServiceImpl implements LedgerService {
     // 1. 가계부 수정
     int updateCnt = ledgerListMapper.updateLedger(ledgerInVo);
     if (updateCnt < 1) {
-      throw new CshMintBizException(ErrorCode.CMM_ERROR_001, new Object[]{"가계부"});
+      throw new CshMintBizException(ErrorCode.CMM_ERROR_001, "가계부");
     }
     // 2 가계부 사용자 삭제
-    int delCnt = ledgerMapper.deleteUserLedger(ledgerInVo);
+    UserLedgerInVo userLedgerInVo = UserLedgerInVo.builder()
+            .ledgerSeq(ledgerInVo.getLedgerSeq())
+            .build();
+    int delCnt = ledgerMapper.deleteUserLedger(userLedgerInVo);
     if(delCnt < 1) {
-      throw new CshMintBizException(ErrorCode.CMM_ERROR_001, new Object[]{"가계부 사용자"});
+      throw new CshMintBizException(ErrorCode.CMM_ERROR_001, "가계부 사용자");
     }
 
     // 3. 가계부 사용자 정보 등록
@@ -189,21 +198,56 @@ public class LedgerServiceImpl implements LedgerService {
    * @param ledgerRegInVo 가계부 삭제정보
    * @return  int 삭제개수
    */
-  @Transactional(rollbackFor = Exception.class)
   @Override
+  @Transactional(rollbackFor = Exception.class)
   public int deleteLedger(LedgerRegInVo ledgerRegInVo){
     int result = 0;
     LedgerInVo ledgerInVo = ledgerRegInVo.getLedgerInVo();
     ledgerInVo.setUpdateUserSeq(Integer.parseInt(SessionUtils.getUserSeq().toString()));
     ledgerInVo.setCreateUserSeq(Integer.parseInt(SessionUtils.getUserSeq().toString()));
 
+    UserLedgerInVo userLedgerInVo = UserLedgerInVo.builder()
+            .ledgerSeq(ledgerInVo.getLedgerSeq())
+                    .build();
+
     // 1.가계부 사용자 정보 먼저 삭제
-    ledgerMapper.deleteUserLedger(ledgerInVo);
+    ledgerMapper.deleteUserLedger(userLedgerInVo);
 
     // 2.가계부 삭제
     ledgerMapper.deleteLedger(ledgerInVo);
 
     result++;
+    return result;
+  }
+
+  /**
+   * 가계부 등록 > 가계부 동의/ 거절 여부
+   * @param userLedgerInVo 가게부 정보
+   */
+  @Override
+  @Transactional(rollbackFor = Exception.class)
+  public int updateLedgerAgree(UserLedgerInVo userLedgerInVo) {
+    userLedgerInVo.setUserSeq(SessionUtils.getUserSeq());
+    // 사용자 정보
+    userLedgerInVo.setUpdateUserSeq(Integer.parseInt(SessionUtils.getUserSeq().toString()));
+    // 동의 거절시
+    if("N".equals(userLedgerInVo.getInviteAgreeYn())) {
+        return ledgerMapper.deleteUserLedger(userLedgerInVo);
+    } else {
+      // 하루만 보기 담당자 일때
+      if("Y".equals(userLedgerInVo.getShowOnedayYn())) {
+        log.debug("================userLedgerInVo ============");
+        LocalDate now = LocalDate.now();
+        userLedgerInVo.setAuthExitDate(now.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+      } else {
+        userLedgerInVo.setAuthExitDate("99991231");
+      }
+    }
+    // 가계부 사용자 동의여부 넣기
+    int result = ledgerMapper.updateLedgerAgree(userLedgerInVo);
+    if(result < 1) {
+      throw new CshMintBizException(ErrorCode.CMM_ERROR_001, "초대 수락/거절");
+    }
     return result;
   }
 

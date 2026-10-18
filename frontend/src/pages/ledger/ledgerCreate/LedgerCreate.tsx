@@ -13,7 +13,12 @@ import Button from "@/components/common/button";
 import {FormSlot} from "@/components/common/form/formList";
 import {emailValid} from "@/utils/validation.ts";
 import useAlert from "@/hooks/modals/useAlert.ts";
-import {delLedgerApi, getLedgerDetailApi, setLedgerApi} from "@/api/ledger/ledger.api.ts";
+import {
+  delLedgerApi,
+  getLedgerDetailApi,
+  modifyLedgerApi,
+  setLedgerApi
+} from "@/api/ledger/ledger.api.ts";
 import {useAppNavigate} from "@/hooks/navigate/useAppNavigate.ts";
 import {useLocation} from "react-router-dom";
 import {useConfirm} from "@/components/modals/confirm/ConfirmProvider.tsx";
@@ -129,16 +134,46 @@ export function LedgerCreate() {
           userLedgerInVoList: userLedgerList.filter((item) => !isEmpty(item.email)),
           ledgerInVo: ledgerInfo
         }
-
-        const response = await setLedgerApi(ledgerRegParams);
-        if (response.success) {
-          onOpenAlert({
-            message: "저장에 성공하였습니다.", onConfirm: () => {
-              goLedgerList();
-            }
-          })
+        // 등록 화면일때
+        if(screenMode !== "D") {
+          await onInsertLedgerApi(ledgerRegParams);
+        } else {
+          // 수정 화면일때
+          await onUpdateLedgerApi(ledgerRegParams);
         }
       }
+    }
+  }
+
+  /**
+   * 가계부 저장 > 가계부 등록
+   * @param ledgerRegParams
+   */
+  const onInsertLedgerApi = async (ledgerRegParams: LedgerRegInfo) => {
+    const response = await setLedgerApi(ledgerRegParams);
+    // 성공시
+    if (response.success) {
+      onOpenAlert({
+        message: "저장에 성공하였습니다.", onConfirm: () => {
+          goLedgerList();
+        }
+      })
+    }
+  }
+
+  /**
+   * 가계부 저장 > 가계부 등록
+   * @param ledgerRegParams
+   */
+  const onUpdateLedgerApi = async (ledgerRegParams: LedgerRegInfo) => {
+    const response = await modifyLedgerApi(ledgerRegParams);
+    // 성공시
+    if (response.success) {
+      onOpenAlert({
+        message: "저장에 성공하였습니다.", onConfirm: () => {
+          goLedgerList();
+        }
+      })
     }
   }
   /**

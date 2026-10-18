@@ -2,6 +2,7 @@ package com.cshbk.cshmint.ledger.service;
 
 import com.cshbk.cshmint.ledger.vo.in.LedgerListInVo;
 import com.cshbk.cshmint.ledger.vo.in.LedgerRegInVo;
+import com.cshbk.cshmint.ledger.vo.in.UserLedgerInVo;
 import com.cshbk.cshmint.ledger.vo.out.LedgerDetailOutVo;
 import com.cshbk.cshmint.ledger.vo.out.LedgerListRsltOutVo;
 
@@ -53,4 +54,10 @@ public interface LedgerService {
    */
   int deleteLedger(LedgerRegInVo ledgerRegInVo);
 
+  /**
+   * 가계부 등록 > 가계부 동의/ 거절 여부
+   * @param userLedgerInVo 가게부 정보
+   * @return
+   */
+  int updateLedgerAgree(UserLedgerInVo userLedgerInVo);
 }
