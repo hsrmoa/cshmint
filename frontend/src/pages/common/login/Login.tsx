@@ -44,6 +44,28 @@ function Login() {
   // 비밀번호 INPUT REF
   const pwdRef = useRef<HTMLInputElement>(null);
 
+  /**
+   * useState
+   * 1. 정의
+   *     - React에서 컴포넌트의 상태(State)를 생성하고 관리할 수 있게 해주는 가장 기본적인 HOOK
+   *     - React에서 상태(State)란 화면에 보여줄 "변할 수 있는 데이터"를 의미
+   * 2. useState로 만든 상태값이 바뀌면 React가 감지하여 화면을 자동으로 다시 그려줌 (=리렌더링)
+   * 3. 문법
+   *    const [state, setState] = useState(initValue);
+   *      - initValue(초기값) : 상태가 처음 가질 값
+   *      - state(상태변수) : 현재 상태의 값을 담고 있는 변수
+   *      - setState(상태변경함수): 상태 값을 바꿀 때 호출하는 함수
+   * 4. 일반변수라 차이점
+   *    - 값이 바뀌면 컴포넌트가 자동으로 리렌더링됨 (일반변수는 다시 그려지지 않음)
+   *    - 컴포넌트가 다시 그려져도 변경되어 있던 값이 유지됨(일반변수는 다시 그려지면 초기값이 리셋됨)
+   * 5. 주의할점.
+   *    - 상태를 직접 수정하면 안됨(불변성 유지) :: setState()
+   *    - 객체나 배열을 수정할 때는 기존 구조를 복사하여 새로운 객체/배열을 만들어 전달해야 변경을 인식
+   *        :: setState({...state, value: 'test'}
+   *    - 이전 상태를 기반으로 업데이트 할 때는 콜백 함수 형태를 사용하는 것이 안전
+   *        :: setState((prevValue) => prevValue + 1)
+   * 6. "화면에 바로 바뀌어서 보여야 하는 모든 유동적인 데이터" 를 useState로 다룬다고 봐야함
+   * */
   // 로그인 입력 정보
   const [loginInfo, setLoginInfo] = useState<LoginRequest>({
     email: "",

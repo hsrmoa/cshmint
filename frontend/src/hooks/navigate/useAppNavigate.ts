@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { COMMON_PATHS, LEDGERS_PATHS } from "@/routes/paths";
+import type {LedgerSelInfo} from "@/types/ledger.type.ts";
 
 /**
  * 앱 > 이동경록 설정
@@ -21,5 +22,11 @@ export const useAppNavigate = () => {
         ledgerSeq:ledgerSeq
       }
     }),
+    // 가계부 작성 목록 이동
+    goEntityWrite:(info:LedgerSelInfo | null) => navigate(LEDGERS_PATHS.ENTITY_WRITE + `/${info?.ledgerInVo.ledgerSeq}`, {
+      state: {
+        ledgerSelInfo: info
+      }
+    })
   }
 };

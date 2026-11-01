@@ -8,6 +8,7 @@ import Button from "@/components/common/button";
  */
 type LedgerCardProps = {
   title?: string;
+  onTitleClick?: (rowIndex:number) => void | null
   className?: 'orange' | 'green' | '';
   children?: React.ReactNode;
   onClick?: (rowIndex: number) => void;
@@ -36,6 +37,7 @@ type LedgerCardProps = {
  * @param isInvited 초대여부
  * @param onAccept 수락버튼 클릭이벤트
  * @param onReject 거절버튼 클릭이벤트
+ * @param onTitleClick 제목 클릭이벤트
  * @constructor
  */
 export default function LedgerCard({
@@ -51,7 +53,8 @@ export default function LedgerCard({
                                      isInvited = true,
                                      inviteUserNm = "소라빵",
                                      onAccept,
-                                     onReject
+                                     onReject,
+                                     onTitleClick
                                    }: LedgerCardProps) {
   /**
    * 목록성 카드 클릭시
@@ -73,6 +76,13 @@ export default function LedgerCard({
     e.stopPropagation();
     onSettingClick?.(cardIndex);
   }
+  /**
+   * 타이틀정보 클릭
+   */
+  const onLedgerCardTitleClick = (e:React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    onTitleClick?.(cardIndex);
+  }
   return (
     <div
       className={styles.card}
@@ -82,7 +92,7 @@ export default function LedgerCard({
     >
       {title && !isLast && (
         <div className={`${styles.cardHeader} ${styles[className]}`}>
-          <span className={styles.cardTitle}>
+          <span className={styles.cardTitle} onClick={onLedgerCardTitleClick}>
             {title}
           </span>
           {isShowSetting &&

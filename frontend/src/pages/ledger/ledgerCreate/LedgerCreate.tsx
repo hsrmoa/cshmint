@@ -303,7 +303,7 @@ export function LedgerCreate() {
                   }))
                 }}
               />
-              <FormSlot visible={item.ledgerAuth !== 'U'} size="md">
+              <FormSlot visible={item.ledgerAuth !== 'W'} size="md">
                 <Checkbox checked={item.showOnedayYn} id={`showOnedayYn-${idx}`} onChange={(checked: boolean) => {
                   onUserLedgerListChg({
                     index: idx,

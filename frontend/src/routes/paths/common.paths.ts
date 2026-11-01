@@ -12,4 +12,5 @@ export const COMMON_PATHS = {
 export const LEDGERS_PATHS = {
   LEDGER_LIST: '/ledgerList',
   LEDGER_CREATE: '/ledgerCreate',
+  ENTITY_WRITE: '/entityWrite'
 }

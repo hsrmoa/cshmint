@@ -4,7 +4,7 @@ import type {SelectBoxOptionProps} from "@/components/common/selectBox/selectBox
 import SelectBox from "@/components/common/selectBox";
 import {useEffect, useState} from "react";
 import type {LedgerList, LedgerListRequest, LedgerSelInfo} from "@/types/ledger.type.ts";
-import {useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 import type {RootState} from "@/app/store.ts";
 import {getLedgerListApi, modifyLedgerAgree} from "@/api/ledger/ledger.api.ts";
 import LedgerCard from "@/components/common/ledger/ledgerCard";
@@ -37,8 +37,7 @@ export default function LedgerList() {
 
   // localStrage에 있는 UserInfo 정보 가져오기
   const userInfo = useSelector((state: RootState) => state.auth?.userInfo);
-
-  const { goLedgerCreate } = useAppNavigate();
+  const { goLedgerCreate, goEntityWrite } = useAppNavigate();
 
   /******* EVENT ******/
     // SELECT박스 chang 이벤트
@@ -155,6 +154,13 @@ export default function LedgerList() {
         callback();
     }
   }
+  /**
+   * 가계부 타이틀정보 클릭
+   */
+  const onTitleClick = (index:number) => {
+    // 가계부 작성목록 이동
+    goEntityWrite(ledgerList[index]);
+  }
   return (
     <MainLayout>
       <LedgerListLayout
@@ -167,6 +173,7 @@ export default function LedgerList() {
             <LedgerCard
               key={idx}
               cardIndex={idx}
+              onTitleClick={onTitleClick}
               title={item.ledgerInVo.ledgerNm}
               isLast={ledgerList.length-1 === idx}
               className={item.ledgerInVo.masterYn === 'Y' ? 'green' : 'orange'}
@@ -180,7 +187,9 @@ export default function LedgerList() {
               <LedgerCardContent
                 owner={item.ledgerInVo.userNm}
                 createAt={item.ledgerInVo.createDate}
-                members={item.userLedgerInVoList.map(item => item.userNm)}
+                members={item.userLedgerInVoList
+                  .filter((item) => item.masterYn === "N")
+                  .map(item => item.userNm)}
               />
             </LedgerCard>
           ))

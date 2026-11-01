@@ -1,18 +1,10 @@
 import React from "react";
-import {createContext, useState} from 'react';
+import {createContext} from 'react';
 import AlertModal from "@/components/modals/alert/AlertModal.tsx";
-import type { AlertType } from "./alert.type.ts";''
+import {useDispatch, useSelector} from "react-redux";
+import type {RootState} from "@/app/store.ts";
+import {type AlertOption, closeAlert, onOpenAlert} from "@/features/alertSlice.ts";
 
-
-/**
- * Alert 호출 시 Option Type 정보
- */
-type AlertOption = {
-  type? : AlertType;
-  message: string;
-  confirmText?: string;
-  onConfirm?: () => void;
-}
 
 /**
  * Alert Conntext에서 외부로 제공할 함수
@@ -41,44 +33,39 @@ type AlertProviderProps = {
  * @constructor
  */
 export function AlertProvider({children}: AlertProviderProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [option, setOption] = useState<AlertOption>({
-    type: "info",
-    message: "",
-    confirmText: "확인",
-    onConfirm: () => {}
-  });
+  const dispatch = useDispatch();
+  const { isOpen, alertOption } = useSelector((state:RootState) => state.alert);
+
 
   /**
    * Alert Open 함수
    * @param option
    */
-  const onOpenAlert = (option: AlertOption) => {
-    setOption({
+  const onOpenAlertHandle = (option: AlertOption) => {
+    dispatch(onOpenAlert({
       type: option.type ?? "info",
       message: option.message,
       confirmText: option.confirmText ?? "확인",
-      onConfirm: option.onConfirm
-    });
-    setIsOpen(true);
+      onConfirm: option.onConfirm ?? null
+    }));
   };
   /**
    *  화면 닫기
    */
-  const onCloseAlert = () => {
-    option.onConfirm?.();
-    setIsOpen(false);
+  const onCloseAlertHandle = () => {
+    alertOption?.onConfirm?.();
+    dispatch(closeAlert());
   }
 
   return (
-    <AlertContext.Provider value={{onOpenAlert}}>
+    <AlertContext.Provider value={{onOpenAlert: onOpenAlertHandle}}>
       {children}
       <AlertModal
         isOpen={isOpen}
-        type={option.type}
-        message={option.message}
-        confirmText={option.confirmText}
-        onConfirm={onCloseAlert}
+        type={alertOption?.type}
+        message={alertOption?.message?? ""}
+        confirmText={alertOption?.confirmText}
+        onConfirm={onCloseAlertHandle}
       />
     </AlertContext.Provider>
   )

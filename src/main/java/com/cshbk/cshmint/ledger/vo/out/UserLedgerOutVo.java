@@ -40,4 +40,7 @@ public class UserLedgerOutVo  {
 
   @Schema(description = "이메일주소")
   private String email;
+
+  @Schema(description = "가계부마스터여부")
+  private String masterYn;
 }

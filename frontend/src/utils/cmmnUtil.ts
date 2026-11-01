@@ -61,3 +61,23 @@ export const getTodayYmd = (format:string):string | Date => {
   }
   return today;
 }
+
+/**
+ * [오늘일자 기준] 날짜 비교하기
+ * @param date 비교할 날짜(yyyyMMdd)
+ * @returns -1: 오늘 이전, 0: 오늘, 1: 오늘 이후
+ */
+export const compareDateWithToday = (date:string): number => {
+  const today = getTodayYmd("YYYYMMDD");
+
+  // 오늘날짜 기준으로 이전일때
+  if(date < today) {
+    return -1;
+  }
+  // 오늘날찌 기준으로 이후 일때
+  if(date > today) {
+    return 1;
+  }
+  // 오늘일때
+  return 0;
+}

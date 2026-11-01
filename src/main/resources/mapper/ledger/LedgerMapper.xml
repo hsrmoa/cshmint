@@ -81,12 +81,12 @@
     , TO_CHAR(tul.auth_exit_date, 'YYYYMMDD') AS auth_exit_date
     , tul.invite_agree_yn
     , tul.show_oneday_yn
+    , tul.master_yn
     FROM tb_user_ledger tul
     LEFT OUTER JOIN tb_user tu
     ON tu.user_seq = tul.user_seq
     WHERE tul.ledger_seq = #{ledgerSeq}
     AND tul.use_yn = 'Y'
-    AND tul.master_yn ='N'
     ORDER BY tul.user_seq
   </select>
 

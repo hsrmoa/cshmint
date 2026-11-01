@@ -122,7 +122,7 @@ public class LedgerServiceImpl implements LedgerService {
     // 2-1 가계부 사용자 목록이 비어있을때 = 소유자 사용자 정보 추가
     UserLedgerInVo userLedgerSaveInVo = UserLedgerInVo.builder()
             .userSeq(SessionUtils.getUserSeq())
-            .ledgerAuth("U")
+            .ledgerAuth("W")
             .authExitDate("99991231")
             .masterYn("Y")
             .inviteAgreeYn("Y")

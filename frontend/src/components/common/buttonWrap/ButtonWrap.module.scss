@@ -1,5 +1,5 @@
 /* INPUT을 감싸는 Wrapper 관련된  CSS 정보 */
-@use '@/styles/abstracts/variables' as *;
+@use '@/styles/abstracts' as *;
 @use 'sass:color';
 
 /*======================
@@ -10,6 +10,22 @@
   display: inline-flex;
   flex-direction: row;
   gap: 6px;
+
+  /* isVertical={true}일 때 적용되는 세로 배치 스타일 */
+  &.vertical {
+    flex-direction: column; /* 세로 배치 */
+    flex-wrap: nowrap;
+    width: 100%;
+    gap:8px;
+
+    & button {
+      width: 100%;
+    }
+  }
+
+  & button {
+    width: 100%;
+  }
 }
 
 .fullWidth {

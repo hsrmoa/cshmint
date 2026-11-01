@@ -60,6 +60,7 @@ export type UserSelLedger = {
   authExitDate: string;
   inviteAgreeYn: string;
   showOnedayYn: string;
+  masterYn:string;
 }
 /**
  * 가계부 > 가계부 목록 결과 정보
